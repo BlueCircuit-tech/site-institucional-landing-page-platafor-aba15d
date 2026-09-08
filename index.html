@@ -1561,6 +1561,273 @@ function contato_e_localizacao_janela(t,el){
 </script>
 </section>
 
+    <section data-tela="painel-administrativo" class="hidden">
+  <style>
+    .pa-card{background:#fff;border:1px solid #e2e6ef;border-radius:14px}
+    .pa-kpi{font-family:'Barlow Condensed',ui-sans-serif;font-size:2.1rem;line-height:1;font-weight:700;color:#0f2f4a}
+    .pa-tab{text-align:left;padding:.6rem .8rem;border-radius:10px;font-size:.86rem;color:#4a5a6b;font-weight:600}
+    .pa-tab.ativa{background:#0f2f4a;color:#fff}
+    .pa-th{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:#7b8794;font-weight:700;padding:.6rem .9rem;text-align:left;white-space:nowrap}
+    .pa-td{padding:.7rem .9rem;font-size:.86rem;color:#31404f;white-space:nowrap}
+  </style>
+
+  <div class="px-8 py-7 bg-[#f4f6fa] min-h-screen">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-6">
+      <div>
+        <p class="text-[.72rem] tracking-[.18em] uppercase text-[#c9822b] font-bold">Área restrita</p>
+        <h1 class="text-3xl font-bold text-[#0f2f4a]" style="font-family:'Barlow Condensed',ui-sans-serif">Painel Administrativo</h1>
+        <p class="text-sm text-[#5c6b7a] mt-1">Marmoraria Bianchi &middot; dados de 1&ordm; a 30 de setembro de 2024</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <select id="pa-periodo" onchange="painel_administrativo_periodo()" class="pa-card px-3 py-2 text-sm text-[#31404f]">
+          <option>Últimos 7 dias</option>
+          <option selected>Últimos 30 dias</option>
+          <option>Últimos 90 dias</option>
+        </select>
+        <button onclick="mostrarTela('home-institucional')" class="px-4 py-2 rounded-lg text-sm font-semibold text-[#0f2f4a] border border-[#0f2f4a] bg-white hover:bg-[#e9eef5]">Ver site publicado</button>
+        <button onclick="mostrarTela('cadastro-de-cliente')" class="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#c9822b] hover:bg-[#b0701f]">+ Novo cadastro</button>
+      </div>
+    </div>
+
+    <div class="grid gap-6" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+      <div class="lg:col-span-1" style="max-width:260px">
+        <nav class="pa-card p-3 flex flex-col gap-1">
+          <button class="pa-tab ativa" data-aba="visao" onclick="painel_administrativo_aba('visao')">📊 Visão geral</button>
+          <button class="pa-tab" data-aba="leads" onclick="painel_administrativo_aba('leads')">👥 Leads capturados</button>
+          <button class="pa-tab" data-aba="catalogo" onclick="painel_administrativo_aba('catalogo')">🧱 Gestão do catálogo</button>
+          <button class="pa-tab" data-aba="atendimento" onclick="painel_administrativo_aba('atendimento')">💬 Chat &amp; suporte</button>
+          <div class="h-px bg-[#e2e6ef] my-2"></div>
+          <button class="pa-tab" onclick="mostrarTela('contato-e-localizacao')">📍 Unidades no mapa</button>
+          <button class="pa-tab" onclick="mostrarTela('catalogo-de-servicos')">🔎 Catálogo público</button>
+        </nav>
+        <div class="pa-card p-4 mt-4">
+          <p class="text-xs font-bold uppercase tracking-wider text-[#7b8794] mb-2">Origem dos leads</p>
+          <div class="space-y-2 text-sm text-[#31404f]">
+            <div class="flex justify-between"><span>Google Orgânico</span><b>42%</b></div>
+            <div class="h-1.5 bg-[#e2e6ef] rounded"><div class="h-1.5 bg-[#0f2f4a] rounded" style="width:42%"></div></div>
+            <div class="flex justify-between"><span>Instagram</span><b>31%</b></div>
+            <div class="h-1.5 bg-[#e2e6ef] rounded"><div class="h-1.5 bg-[#c9822b] rounded" style="width:31%"></div></div>
+            <div class="flex justify-between"><span>Indicação</span><b>27%</b></div>
+            <div class="h-1.5 bg-[#e2e6ef] rounded"><div class="h-1.5 bg-[#4a7d5f] rounded" style="width:27%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="grid-column:1/-1">
+        <div data-painel="visao">
+          <div class="grid gap-4 mb-6" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr))">
+            <div class="pa-card p-5">
+              <p class="text-xs uppercase tracking-wider text-[#7b8794] font-bold">Visitas ao site</p>
+              <p class="pa-kpi mt-2">14.382</p>
+              <p class="text-xs text-[#4a7d5f] font-semibold mt-1">▲ 18,4% vs. agosto</p>
+            </div>
+            <div class="pa-card p-5">
+              <p class="text-xs uppercase tracking-wider text-[#7b8794] font-bold">Leads recebidos</p>
+              <p class="pa-kpi mt-2">237</p>
+              <p class="text-xs text-[#4a7d5f] font-semibold mt-1">▲ 26 novos esta semana</p>
+            </div>
+            <div class="pa-card p-5">
+              <p class="text-xs uppercase tracking-wider text-[#7b8794] font-bold">Orçamentos fechados</p>
+              <p class="pa-kpi mt-2">41</p>
+              <p class="text-xs text-[#7b8794] font-semibold mt-1">Conversão de 17,3%</p>
+            </div>
+            <div class="pa-card p-5">
+              <p class="text-xs uppercase tracking-wider text-[#7b8794] font-bold">Ticket médio</p>
+              <p class="pa-kpi mt-2">R$ 6.740</p>
+              <p class="text-xs text-[#b0701f] font-semibold mt-1">▼ 2,1% vs. agosto</p>
+            </div>
+          </div>
+
+          <div class="pa-card p-5 mb-6">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <h2 class="font-bold text-[#0f2f4a] text-lg">Contatos por semana</h2>
+              <div class="flex gap-1 text-xs">
+                <button onclick="painel_administrativo_metrica('contatos',this)" class="pa-metrica px-3 py-1.5 rounded-md font-semibold bg-[#0f2f4a] text-white">Contatos</button>
+                <button onclick="painel_administrativo_metrica('visitas',this)" class="pa-metrica px-3 py-1.5 rounded-md font-semibold bg-[#eef1f6] text-[#4a5a6b]">Visitas</button>
+              </div>
+            </div>
+            <div id="pa-grafico" class="flex items-end gap-4 h-48 px-1"></div>
+            <p id="pa-grafico-legenda" class="text-xs text-[#7b8794] mt-3">Clique em uma barra para ver o resumo da semana.</p>
+          </div>
+
+          <div class="pa-card overflow-hidden">
+            <div class="flex flex-wrap items-center justify-between gap-3 px-5 py-4 border-b border-[#e2e6ef]">
+              <h2 class="font-bold text-[#0f2f4a] text-lg">Últimos cadastros</h2>
+              <button onclick="painel_administrativo_aba('leads')" class="text-sm font-semibold text-[#c9822b] hover:underline">Ver todos os leads →</button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[760px]">
+                <thead class="bg-[#f8fafc]"><tr><th class="pa-th">Cliente</th><th class="pa-th">Interesse</th><th class="pa-th">Cidade</th><th class="pa-th">Data</th><th class="pa-th">Status</th><th class="pa-th"></th></tr></thead>
+                <tbody id="pa-tabela-leads" class="divide-y divide-[#eef1f6]"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div data-painel="leads" class="hidden">
+          <div class="grid gap-6" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
+            <div class="pa-card overflow-hidden">
+              <div class="px-5 py-4 border-b border-[#e2e6ef] flex flex-wrap gap-2 items-center justify-between">
+                <h2 class="font-bold text-[#0f2f4a] text-lg">Leads capturados</h2>
+                <input id="pa-busca" oninput="painel_administrativo_render()" placeholder="Buscar por nome…" class="px-3 py-1.5 text-sm border border-[#dfe4ec] rounded-lg">
+              </div>
+              <div id="pa-lista-leads" class="divide-y divide-[#eef1f6] max-h-[430px] overflow-y-auto"></div>
+            </div>
+            <div class="pa-card p-6" id="pa-detalhe">
+              <p class="text-sm text-[#7b8794]">Selecione um lead na lista para ver o detalhe do contato.</p>
+            </div>
+          </div>
+        </div>
+
+        <div data-painel="catalogo" class="hidden">
+          <div class="pa-card overflow-hidden">
+            <div class="flex flex-wrap items-center justify-between gap-3 px-5 py-4 border-b border-[#e2e6ef]">
+              <h2 class="font-bold text-[#0f2f4a] text-lg">Gestão do catálogo</h2>
+              <button onclick="mostrarTela('detalhe-do-servico')" class="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#0f2f4a] hover:bg-[#173f60]">Abrir página do serviço</button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[820px]">
+                <thead class="bg-[#f8fafc]"><tr><th class="pa-th">Serviço / material</th><th class="pa-th">Categoria</th><th class="pa-th">Preço-base</th><th class="pa-th">Visitas</th><th class="pa-th">Publicado</th><th class="pa-th"></th></tr></thead>
+                <tbody id="pa-tabela-catalogo" class="divide-y divide-[#eef1f6]"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div data-painel="atendimento" class="hidden">
+          <div class="grid gap-6" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+            <div class="pa-card p-5">
+              <h2 class="font-bold text-[#0f2f4a] text-lg mb-3">Conversas no chat do site</h2>
+              <div id="pa-chats" class="space-y-2"></div>
+            </div>
+            <div class="pa-card p-5">
+              <h2 class="font-bold text-[#0f2f4a] text-lg mb-3">Resposta rápida</h2>
+              <p id="pa-chat-quem" class="text-sm text-[#7b8794] mb-2">Nenhuma conversa selecionada.</p>
+              <textarea id="pa-chat-msg" rows="4" class="w-full border border-[#dfe4ec] rounded-lg p-3 text-sm" placeholder="Digite a resposta ao visitante…"></textarea>
+              <button onclick="painel_administrativo_responder()" class="mt-3 px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#c9822b] hover:bg-[#b0701f]">Enviar resposta</button>
+              <div id="pa-chat-log" class="mt-4 space-y-2 text-sm"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var pa_leads = [
+      {n:"Marina Toledo", i:"Bancada em Quartzo Branco Prime", c:"Campinas / SP", d:"29/09/2024", s:"Novo", tel:"(19) 99182-4471", em:"marina.toledo@gmail.com", obs:"Cozinha de 3,2 m com cuba dupla esculpida. Pediu visita técnica no sábado.", val:"R$ 8.900"},
+      {n:"Construtora Vale Verde", i:"Escadas em Granito Preto São Gabriel", c:"Valinhos / SP", d:"28/09/2024", s:"Em negociação", tel:"(19) 3849-2210", em:"compras@valeverde.com.br", obs:"Obra de 12 unidades. Solicitou tabela de preço por volume.", val:"R$ 74.300"},
+      {n:"Rogério Namura", i:"Soleiras e rodapés em Mármore Travertino", c:"Indaiatuba / SP", d:"27/09/2024", s:"Novo", tel:"(19) 98770-1155", em:"rogerio.namura@outlook.com", obs:"Reforma de apartamento, 46 m de soleira. Prefere contato por WhatsApp.", val:"R$ 5.150"},
+      {n:"Ateliê Casa Nossa", i:"Mesa de jantar em Mármore Carrara", c:"Jundiaí / SP", d:"26/09/2024", s:"Fechado", tel:"(11) 94422-8098", em:"projetos@casanossa.arq.br", obs:"Peça 2,40 x 1,00 m com borda meia-esquadria. Entrega em 21/10.", val:"R$ 12.480"},
+      {n:"Elaine Bastos", i:"Lavatório em Granito Verde Ubatuba", c:"Hortolândia / SP", d:"25/09/2024", s:"Sem resposta", tel:"(19) 99004-3376", em:"elaine.bastos@yahoo.com.br", obs:"Dois banheiros. Não respondeu às 2 tentativas de ligação.", val:"R$ 3.290"}
+    ];
+    var pa_catalogo = [
+      {n:"Bancada em Quartzo Branco Prime", cat:"Bancadas", p:"R$ 1.480 / m²", v:"3.204", pub:true},
+      {n:"Granito Preto São Gabriel", cat:"Granitos", p:"R$ 690 / m²", v:"2.117", pub:true},
+      {n:"Mármore Carrara Italiano", cat:"Mármores", p:"R$ 2.350 / m²", v:"1.845", pub:true},
+      {n:"Soleiras e Peitoris", cat:"Acabamentos", p:"R$ 145 / m linear", v:"968", pub:false}
+    ];
+    var pa_chats = [
+      {n:"Visitante · Sousas", m:"Vocês fazem medição em Campinas sem custo?", h:"há 4 min"},
+      {n:"Thiago Lemes", m:"Qual o prazo para bancada de quartzo?", h:"há 26 min"},
+      {n:"Arq. Priscila Nunes", m:"Preciso de amostra do Travertino Bruto.", h:"há 1 h"}
+    ];
+    var pa_dados = {contatos:[{l:"Sem 01",v:38},{l:"Sem 02",v:52},{l:"Sem 03",v:61},{l:"Sem 04",v:86}], visitas:[{l:"Sem 01",v:2810},{l:"Sem 02",v:3390},{l:"Sem 03",v:3720},{l:"Sem 04",v:4462}]};
+    var pa_metrica = "contatos";
+    var pa_sel = null;
+
+    function painel_administrativo_badge(s){
+      var m={"Novo":"bg-[#e3edf7] text-[#0f2f4a]","Em negociação":"bg-[#fbeeda] text-[#8a5411]","Fechado":"bg-[#e2f0e8] text-[#2f5c43]","Sem resposta":"bg-[#f0e2e2] text-[#8a3131]"};
+      return '<span class="px-2 py-0.5 rounded-full text-[.7rem] font-bold '+(m[s]||"bg-gray-100")+'">'+s+'</span>';
+    }
+    function painel_administrativo_aba(a){
+      document.querySelectorAll('[data-tela="painel-administrativo"] .pa-tab').forEach(function(b){b.classList.toggle('ativa', b.dataset.aba===a);});
+      document.querySelectorAll('[data-tela="painel-administrativo"] [data-painel]').forEach(function(p){p.classList.toggle('hidden', p.dataset.painel!==a);});
+    }
+    function painel_administrativo_grafico(){
+      var d=pa_dados[pa_metrica], max=Math.max.apply(null,d.map(function(x){return x.v;}));
+      document.getElementById('pa-grafico').innerHTML=d.map(function(x,i){
+        return '<button onclick="painel_administrativo_barra('+i+')" class="flex-1 flex flex-col items-center justify-end h-full group">'+
+        '<span class="text-xs font-bold text-[#0f2f4a] mb-1">'+x.v.toLocaleString('pt-BR')+'</span>'+
+        '<div class="w-full rounded-t-md '+(pa_metrica==="contatos"?'bg-[#0f2f4a]':'bg-[#c9822b]')+' group-hover:opacity-80" style="height:'+(x.v/max*100)+'%"></div>'+
+        '<span class="text-xs text-[#7b8794] mt-1">'+x.l+'</span></button>';
+      }).join('');
+    }
+    function painel_administrativo_barra(i){
+      var x=pa_dados[pa_metrica][i];
+      document.getElementById('pa-grafico-legenda').innerHTML='<b>'+x.l+' de setembro</b> — '+x.v.toLocaleString('pt-BR')+' '+(pa_metrica==="contatos"?'contatos recebidos pelo formulário e chat.':'sessões registradas no site.');
+    }
+    function painel_administrativo_metrica(m,el){
+      pa_metrica=m;
+      document.querySelectorAll('[data-tela="painel-administrativo"] .pa-metrica').forEach(function(b){b.className='pa-metrica px-3 py-1.5 rounded-md font-semibold bg-[#eef1f6] text-[#4a5a6b]';});
+      el.className='pa-metrica px-3 py-1.5 rounded-md font-semibold bg-[#0f2f4a] text-white';
+      painel_administrativo_grafico();
+      document.getElementById('pa-grafico-legenda').textContent='Clique em uma barra para ver o resumo da semana.';
+    }
+    function painel_administrativo_periodo(){
+      var p=document.getElementById('pa-periodo').value;
+      document.getElementById('pa-grafico-legenda').innerHTML='Período aplicado: <b>'+p+'</b>. Gráfico atualizado por semana.';
+    }
+    function painel_administrativo_render(){
+      document.getElementById('pa-tabela-leads').innerHTML=pa_leads.slice(0,4).map(function(l,i){
+        return '<tr class="hover:bg-[#f8fafc]"><td class="pa-td font-semibold text-[#0f2f4a]">'+l.n+'</td><td class="pa-td">'+l.i+'</td><td class="pa-td">'+l.c+'</td><td class="pa-td">'+l.d+'</td><td class="pa-td">'+painel_administrativo_badge(l.s)+'</td>'+
+        '<td class="pa-td"><button onclick="painel_administrativo_abrir('+i+')" class="text-[#c9822b] font-semibold hover:underline">Detalhe</button></td></tr>';
+      }).join('');
+      var q=(document.getElementById('pa-busca').value||'').toLowerCase();
+      document.getElementById('pa-lista-leads').innerHTML=pa_leads.filter(function(l){return l.n.toLowerCase().indexOf(q)>-1;}).map(function(l){
+        var i=pa_leads.indexOf(l);
+        return '<button onclick="painel_administrativo_abrir('+i+')" class="w-full text-left px-5 py-3 hover:bg-[#f8fafc] '+(pa_sel===i?'bg-[#eef4fa]':'')+'">'+
+        '<div class="flex justify-between gap-3"><span class="font-semibold text-[#0f2f4a] text-sm">'+l.n+'</span>'+painel_administrativo_badge(l.s)+'</div>'+
+        '<p class="text-xs text-[#5c6b7a] mt-1">'+l.i+' · '+l.d+'</p></button>';
+      }).join('')||'<p class="px-5 py-4 text-sm text-[#7b8794]">Nenhum lead encontrado.</p>';
+      document.getElementById('pa-tabela-catalogo').innerHTML=pa_catalogo.map(function(c,i){
+        return '<tr class="hover:bg-[#f8fafc]"><td class="pa-td font-semibold text-[#0f2f4a]">'+c.n+'</td><td class="pa-td">'+c.cat+'</td><td class="pa-td">'+c.p+'</td><td class="pa-td">'+c.v+'</td>'+
+        '<td class="pa-td"><button onclick="painel_administrativo_pub('+i+')" class="px-2 py-0.5 rounded-full text-[.7rem] font-bold '+(c.pub?'bg-[#e2f0e8] text-[#2f5c43]':'bg-[#f0e2e2] text-[#8a3131]')+'">'+(c.pub?'No ar':'Rascunho')+'</button></td>'+
+        '<td class="pa-td"><button onclick="mostrarTela(\'detalhe-do-servico\')" class="text-[#c9822b] font-semibold hover:underline">Editar página</button></td></tr>';
+      }).join('');
+      document.getElementById('pa-chats').innerHTML=pa_chats.map(function(c,i){
+        return '<button onclick="painel_administrativo_chat('+i+')" class="w-full text-left p-3 rounded-lg border border-[#e2e6ef] hover:border-[#c9822b]"><div class="flex justify-between gap-2"><b class="text-sm text-[#0f2f4a]">'+c.n+'</b><span class="text-xs text-[#7b8794]">'+c.h+'</span></div><p class="text-sm text-[#5c6b7a] mt-1">'+c.m+'</p></button>';
+      }).join('');
+    }
+    function painel_administrativo_pub(i){ pa_catalogo[i].pub=!pa_catalogo[i].pub; painel_administrativo_render(); }
+    function painel_administrativo_abrir(i){
+      pa_sel=i; painel_administrativo_aba('leads');
+      var l=pa_leads[i];
+      document.getElementById('pa-detalhe').innerHTML=
+        '<p class="text-[.7rem] uppercase tracking-widest text-[#c9822b] font-bold">Lead #'+(1200+i)+'</p>'+
+        '<h3 class="text-2xl font-bold text-[#0f2f4a] mt-1" style="font-family:\'Barlow Condensed\',ui-sans-serif">'+l.n+'</h3>'+
+        '<div class="mt-2">'+painel_administrativo_badge(l.s)+'</div>'+
+        '<dl class="mt-4 grid gap-3 text-sm" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">'+
+        '<div><dt class="text-xs text-[#7b8794] font-bold uppercase">Telefone</dt><dd class="text-[#31404f]">'+l.tel+'</dd></div>'+
+        '<div><dt class="text-xs text-[#7b8794] font-bold uppercase">E-mail</dt><dd class="text-[#31404f] break-all">'+l.em+'</dd></div>'+
+        '<div><dt class="text-xs text-[#7b8794] font-bold uppercase">Cidade</dt><dd class="text-[#31404f]">'+l.c+'</dd></div>'+
+        '<div><dt class="text-xs text-[#7b8794] font-bold uppercase">Valor estimado</dt><dd class="text-[#31404f] font-bold">'+l.val+'</dd></div></dl>'+
+        '<p class="mt-4 text-sm text-[#31404f] bg-[#f8fafc] border border-[#e2e6ef] rounded-lg p-3"><b>Interesse:</b> '+l.i+'<br><span class="text-[#5c6b7a]">'+l.obs+'</span></p>'+
+        '<div class="flex flex-wrap gap-2 mt-5">'+
+        '<button onclick="painel_administrativo_status('+i+',\'Em negociação\')" class="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#0f2f4a]">Marcar em negociação</button>'+
+        '<button onclick="painel_administrativo_status('+i+',\'Fechado\')" class="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#4a7d5f]">Orçamento fechado</button>'+
+        '<button onclick="mostrarTela(\'contato-e-localizacao\')" class="px-4 py-2 rounded-lg text-sm font-semibold text-[#0f2f4a] border border-[#0f2f4a]">Agendar visita</button></div>';
+      painel_administrativo_render();
+    }
+    function painel_administrativo_status(i,s){ pa_leads[i].s=s; painel_administrativo_abrir(i); }
+    function painel_administrativo_chat(i){
+      var c=pa_chats[i];
+      document.getElementById('pa-chat-quem').innerHTML='Conversando com <b class="text-[#0f2f4a]">'+c.n+'</b> — "'+c.m+'"';
+      document.getElementById('pa-chat-log').dataset.quem=c.n;
+    }
+    function painel_administrativo_responder(){
+      var t=document.getElementById('pa-chat-msg'), log=document.getElementById('pa-chat-log');
+      if(!t.value.trim()){ document.getElementById('pa-chat-quem').innerHTML='<span class="text-[#8a3131] font-semibold">Digite uma mensagem antes de enviar.</span>'; return; }
+      var d=document.createElement('div');
+      d.className='p-3 rounded-lg bg-[#eef4fa] border border-[#dbe6f0] text-[#31404f]';
+      d.innerHTML='<b class="text-[#0f2f4a]">Você → '+(log.dataset.quem||'visitante do site')+':</b><br>'+t.value+'<span class="block text-xs text-[#7b8794] mt-1">enviado agora · atendimento Bianchi</span>';
+      log.prepend(d); t.value='';
+    }
+    painel_administrativo_render();
+    painel_administrativo_grafico();
+  </script>
+</section>
+
     <!-- TELAS -->
 </main>
 
