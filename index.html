@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pátio Verde — Paisagismo e Jardins | Site Institucional</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Karla:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          folha:    { DEFAULT: '#1F4D36', escuro: '#143024', claro: '#2F6B4B' },
+          musgo:    '#7A9A70',
+          terracota:{ DEFAULT: '#C4632B', claro: '#E28B54' },
+          areia:    { DEFAULT: '#F4EFE6', escuro: '#E4DCCC' },
+          carvao:   '#22251F',
+          orvalho:  '#EAF2EC'
+        },
+        fontFamily: {
+          display: ['Fraunces', 'Georgia', 'serif'],
+          sans: ['Karla', 'system-ui', 'sans-serif']
+        },
+        boxShadow: {
+          suave: '0 12px 32px -18px rgba(20,48,36,.45)'
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background-color: #F4EFE6; }
+  .nav-btn {
+    display:flex; align-items:center; gap:.7rem; width:100%;
+    padding:.62rem .85rem; border-radius:.55rem;
+    font-size:.9rem; color:#D7E4D9; text-align:left;
+    border-left:3px solid transparent; transition:all .18s ease;
+  }
+  .nav-btn:hover { background:#2F6B4B; color:#fff; }
+  .nav-btn.ativo {
+    background:#FFFFFF; color:#143024; font-weight:700;
+    border-left:3px solid #C4632B;
+    box-shadow:0 8px 20px -14px rgba(0,0,0,.6);
+  }
+  .nav-btn.ativo .nav-ico { color:#C4632B; }
+  .nav-ico { width:1.05rem; text-align:center; font-size:.95rem; opacity:.95; }
+  ::selection { background:#E28B54; color:#fff; }
+  /* scrollbar discreta */
+  ::-webkit-scrollbar { width:10px; height:10px; }
+  ::-webkit-scrollbar-track { background:#E4DCCC; }
+  ::-webkit-scrollbar-thumb { background:#7A9A70; border-radius:99px; }
+</style>
+</head>
+<body class="font-sans text-carvao antialiased">
+
+<!-- ===== MENU LATERAL ===== -->
+<aside class="fixed top-0 left-0 z-40 hidden h-screen w-64 flex-col bg-folha-escuro lg:flex">
+  <div class="flex items-center gap-3 px-5 py-6 border-b border-white/10">
+    <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-terracota text-xl">🌿</div>
+    <div class="leading-tight">
+      <p class="font-display text-lg font-700 text-white">Pátio Verde</p>
+      <p class="text-[11px] uppercase tracking-[.18em] text-musgo">Paisagismo · SP</p>
+    </div>
+  </div>
+
+  <nav class="flex-1 space-y-1 overflow-y-auto px-3 py-5">
+    <p class="px-3 pb-2 text-[10px] font-700 uppercase tracking-[.2em] text-musgo">Site público</p>
+    <button class="nav-btn" data-nav="home-institucional" onclick="mostrarTela('home-institucional')">
+      <span class="nav-ico">⌂</span> Home Institucional
+    </button>
+    <button class="nav-btn" data-nav="catalogo-de-servicos" onclick="mostrarTela('catalogo-de-servicos')">
+      <span class="nav-ico">☘</span> Catálogo de Serviços
+    </button>
+    <button class="nav-btn" data-nav="detalhe-do-servico" onclick="mostrarTela('detalhe-do-servico')">
+      <span class="nav-ico">❧</span> Detalhe do Serviço
+    </button>
+    <button class="nav-btn" data-nav="cadastro-de-cliente" onclick="mostrarTela('cadastro-de-cliente')">
+      <span class="nav-ico">✎</span> Cadastro de Cliente
+    </button>
+    <button class="nav-btn" data-nav="contato-e-localizacao" onclick="mostrarTela('contato-e-localizacao')">
+      <span class="nav-ico">◎</span> Contato e Localização
+    </button>
+
+    <p class="px-3 pb-2 pt-5 text-[10px] font-700 uppercase tracking-[.2em] text-musgo">Interno</p>
+    <button class="nav-btn" data-nav="painel-administrativo" onclick="mostrarTela('painel-administrativo')">
+      <span class="nav-ico">▦</span> Painel Administrativo
+    </button>
+  </nav>
+
+  <div class="border-t border-white/10 px-5 py-4">
+    <p class="text-[11px] text-musgo">Atendimento</p>
+    <p class="text-sm font-600 text-white">(11) 3897-2240</p>
+    <p class="mt-1 text-[11px] text-musgo">Seg a sáb · 8h às 18h</p>
+  </div>
+</aside>
+
+<!-- ===== TOPO ===== -->
+<header class="sticky top-0 z-30 border-b border-areia-escuro bg-areia/95 backdrop-blur lg:pl-64">
+  <div class="flex flex-wrap items-center gap-3 px-5 py-3">
+    <button onclick="abrirMenuMobile()" class="rounded-lg border border-folha/20 px-3 py-2 text-folha lg:hidden">☰</button>
+    <div class="mr-auto min-w-0">
+      <p class="truncate font-display text-[15px] font-600 text-folha-escuro">Jardins que amadurecem com a casa</p>
+      <p class="truncate text-[11px] text-folha/60">Projeto, implantação e manutenção de áreas verdes — desde 2009</p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <button onclick="mostrarTela('catalogo-de-servicos')" class="rounded-lg border border-folha/25 px-3 py-2 text-[13px] font-600 text-folha hover:bg-orvalho">Ver serviços</button>
+      <button onclick="mostrarTela('cadastro-de-cliente')" class="rounded-lg bg-terracota px-4 py-2 text-[13px] font-700 text-white shadow-suave hover:bg-terracota-claro">Solicitar orçamento</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== MENU MOBILE ===== -->
+<div id="menu-mobile" class="fixed inset-0 z-50 hidden lg:hidden">
+  <div class="absolute inset-0 bg-carvao/60" onclick="fecharMenuMobile()"></div>
+  <div class="absolute left-0 top-0 h-full w-72 bg-folha-escuro p-4">
+    <div class="mb-4 flex items-center justify-between">
+      <span class="font-display text-lg text-white">Pátio Verde</span>
+      <button onclick="fecharMenuMobile()" class="rounded-lg px-3 py-1 text-white/80 hover:bg-white/10">✕</button>
+    </div>
+    <div class="space-y-1">
+      <button class="nav-btn" onclick="mostrarTela('home-institucional');fecharMenuMobile()"><span class="nav-ico">⌂</span> Home Institucional</button>
+      <button class="nav-btn" onclick="mostrarTela('catalogo-de-servicos');fecharMenuMobile()"><span class="nav-ico">☘</span> Catálogo de Serviços</button>
+      <button class="nav-btn" onclick="mostrarTela('detalhe-do-servico');fecharMenuMobile()"><span class="nav-ico">❧</span> Detalhe do Serviço</button>
+      <button class="nav-btn" onclick="mostrarTela('cadastro-de-cliente');fecharMenuMobile()"><span class="nav-ico">✎</span> Cadastro de Cliente</button>
+      <button class="nav-btn" onclick="mostrarTela('contato-e-localizacao');fecharMenuMobile()"><span class="nav-ico">◎</span> Contato e Localização</button>
+      <button class="nav-btn" onclick="mostrarTela('painel-administrativo');fecharMenuMobile()"><span class="nav-ico">▦</span> Painel Administrativo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONTEÚDO ===== -->
+<main class="min-h-screen px-5 py-7 lg:pl-[17.5rem] lg:pr-8">
+    <!-- TELAS -->
+</main>
+
+<!-- ===== RODAPÉ ===== -->
+<footer class="border-t border-areia-escuro bg-folha-escuro px-5 py-8 text-sm text-musgo lg:pl-[17.5rem]">
+  <div class="flex flex-wrap items-start gap-8">
+    <div class="min-w-[220px] flex-1">
+      <p class="font-display text-lg text-white">Pátio Verde Paisagismo</p>
+      <p class="mt-2 leading-relaxed">Rua Harmonia, 412 — Vila Madalena<br>São Paulo/SP · CEP 05435-000</p>
+      <p class="mt-2">CNPJ 18.442.907/0001-63</p>
+    </div>
+    <div class="min-w-[180px]">
+      <p class="mb-2 text-[11px] uppercase tracking-[.18em] text-white/70">Navegue</p>
+      <button onclick="mostrarTela('catalogo-de-servicos')" class="block py-1 hover:text-white">Catálogo de serviços</button>
+      <button onclick="mostrarTela('contato-e-localizacao')" class="block py-1 hover:text-white">Contato e localização</button>
+      <button onclick="mostrarTela('cadastro-de-cliente')" class="block py-1 hover:text-white">Pedir orçamento</button>
+    </div>
+    <div class="min-w-[180px]">
+      <p class="mb-2 text-[11px] uppercase tracking-[.18em] text-white/70">Fale com a gente</p>
+      <button onclick="abrirChat()" class="block py-1 hover:text-white">Chat com atendente</button>
+      <a href="tel:+551138972240" class="block py-1 hover:text-white">(11) 3897-2240</a>
+      <a href="mailto:contato@patioverde.com.br" class="block py-1 hover:text-white">contato@patioverde.com.br</a>
+    </div>
+  </div>
+  <p class="mt-7 border-t border-white/10 pt-4 text-[11px] text-white/40">Protótipo navegável · BlueCircuit Software · conteúdo de demonstração</p>
+</footer>
+
+<!-- ===== CHAT / SUPORTE ===== -->
+<button id="chat-abrir" onclick="abrirChat()"
+        class="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-folha px-5 py-3 text-sm font-700 text-white shadow-suave hover:bg-folha-claro">
+  💬 Falar com a equipe
+</button>
+
+<div id="chat-painel" class="fixed bottom-6 right-6 z-50 hidden w-[22rem] overflow-hidden rounded-2xl border border-areia-escuro bg-white shadow-suave">
+  <div class="flex items-center gap-3 bg-folha px-4 py-3">
+    <div class="flex h-9 w-9 items-center justify-center rounded-full bg-terracota text-white">RS</div>
+    <div class="mr-auto leading-tight">
+      <p class="text-sm font-700 text-white">Renata Salgado</p>
+      <p class="text-[11px] text-musgo">Atendimento · responde em ~3 min</p>
+    </div>
+    <button onclick="fecharChat()" class="rounded-md px-2 py-1 text-white/80 hover:bg-white/10">✕</button>
+  </div>
+
+  <div id="chat-msgs" class="h-64 space-y-3 overflow-y-auto bg-orvalho px-4 py-4 text-[13px]">
+    <div class="max-w-[85%] rounded-xl rounded-tl-sm bg-white px-3 py-2 shadow-sm">
+      Olá! Sou a Renata, do Pátio Verde. Quer um projeto novo ou manutenção do jardim que já existe?
+    </div>
+  </div>
+
+  <div class="flex flex-wrap gap-2 border-t border-areia-escuro bg-areia px-3 py-2">
+    <button onclick="chatRapido('Quero um projeto de jardim novo')" class="rounded-full border border-folha/25 px-3 py-1 text-[11px] font-600 text-folha hover:bg-orvalho">Projeto novo</button>
+    <button onclick="chatRapido('Preciso de manutenção mensal')" class="rounded-full border border-folha/25 px-3 py-1 text-[11px] font-600 text-folha hover:bg-orvalho">Manutenção</button>
+    <button onclick="chatRapido('Qual o valor da visita técnica?')" class="rounded-full border border-folha/25 px-3 py-1 text-[11px] font-600 text-folha hover:bg-orvalho">Valores</button>
+  </div>
+
+  <form onsubmit="enviarChat(event)" class="flex items-center gap-2 border-t border-areia-escuro px-3 py-3">
+    <input id="chat-input" type="text" placeholder="Escreva sua mensagem…"
+           class="min-w-0 flex-1 rounded-lg border border-areia-escuro px-3 py-2 text-[13px] outline-none focus:border-folha">
+    <button type="submit" class="rounded-lg bg-terracota px-3 py-2 text-[13px] font-700 text-white hover:bg-terracota-claro">Enviar</button>
+  </form>
+</div>
+
+<script>
+  function mostrarTela(id) {
+    document.querySelectorAll('[data-tela]').forEach(function (s) {
+      s.classList.toggle('hidden', s.dataset.tela !== id);
+    });
+    document.querySelectorAll('[data-nav]').forEach(function (b) {
+      b.classList.toggle('ativo', b.dataset.nav === id);
+    });
+    window.scrollTo({ top: 0 });
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    mostrarTela('home-institucional');
+  });
+
+  /* menu mobile */
+  function abrirMenuMobile() { document.getElementById('menu-mobile').classList.remove('hidden'); }
+  function fecharMenuMobile() { document.getElementById('menu-mobile').classList.add('hidden'); }
+
+  /* chat */
+  function abrirChat() {
+    document.getElementById('chat-painel').classList.remove('hidden');
+    document.getElementById('chat-abrir').classList.add('hidden');
+    var i = document.getElementById('chat-input'); if (i) i.focus();
+  }
+  function fecharChat() {
+    document.getElementById('chat-painel').classList.add('hidden');
+    document.getElementById('chat-abrir').classList.remove('hidden');
+  }
+  function chatBolha(texto, meu) {
+    var box = document.getElementById('chat-msgs');
+    var d = document.createElement('div');
+    d.className = meu
+      ? 'ml-auto max-w-[85%] rounded-xl rounded-tr-sm bg-folha px-3 py-2 text-white shadow-sm'
+      : 'max-w-[85%] rounded-xl rounded-tl-sm bg-white px-3 py-2 shadow-sm';
+    d.textContent = texto;
+    box.appendChild(d);
+    box.scrollTop = box.scrollHeight;
+  }
+  var respostasChat = [
+    'Perfeito! Nossa visita técnica em São Paulo custa R$ 280 e é abatida do projeto se você fechar com a gente.',
+    'Anotado. Posso reservar uma visita para quinta, 14h, com o paisagista Caio Ferreira?',
+    'Para manutenção mensal trabalhamos com pacotes a partir de R$ 690 (2 visitas/mês, até 200 m²).',
+    'Ótimo. Deixe seu contato no cadastro e a proposta sai em até 1 dia útil.'
+  ];
+  var respostaIdx = 0;
+  function chatResponder() {
+    chatBolha(respostasChat[respostaIdx % respostasChat.length], false);
+    respostaIdx++;
+  }
+  function chatRapido(texto) {
+    abrirChat();
+    chatBolha(texto, true);
+    setTimeout(chatResponder, 500);
+  }
+  function enviarChat(e) {
+    e.preventDefault();
+    var i = document.getElementById('chat-input');
+    var t = i.value.trim();
+    if (!t) return;
+    chatBolha(t, true);
+    i.value = '';
+    setTimeout(chatResponder, 500);
+  }
+</script>
+</body>
+</html>
