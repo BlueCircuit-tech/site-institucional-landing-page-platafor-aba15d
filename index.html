@@ -1282,6 +1282,285 @@
   </script>
 </section>
 
+    <section data-tela="contato-e-localizacao" class="hidden">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Spectral:wght@600;700&display=swap');
+[data-tela="contato-e-localizacao"]{font-family:'Archivo',system-ui,sans-serif;color:#12332f}
+[data-tela="contato-e-localizacao"] h1,[data-tela="contato-e-localizacao"] h2,[data-tela="contato-e-localizacao"] h3{font-family:'Spectral',Georgia,serif}
+.ct-in{width:100%;border:1px solid #cfdad7;border-radius:.5rem;padding:.6rem .75rem;background:#fff;font-size:.9rem;color:#12332f}
+.ct-in:focus{outline:2px solid #0f6b60;outline-offset:0;border-color:#0f6b60}
+.ct-lb{display:block;font-size:.7rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#5b7873;margin-bottom:.3rem}
+.ct-card{background:#fff;border:1px solid #dfe8e5;border-radius:.85rem}
+.ct-mapa{background-color:#dde8e4;background-image:
+repeating-linear-gradient(90deg,#f7faf9 0 7px,transparent 7px 104px),
+repeating-linear-gradient(0deg,#f7faf9 0 7px,transparent 7px 86px),
+linear-gradient(58deg,transparent 46%,#c8b273 46%,#c8b273 49.5%,transparent 49.5%)}
+.ct-tab{border:1px solid #cfdad7;background:#fff;color:#3d5a55}
+.ct-tab.on{background:#0f6b60;color:#fff;border-color:#0f6b60}
+</style>
+
+<div class="bg-[#f4f7f6] min-h-full">
+  <div class="max-w-[1240px] mx-auto px-6 py-8">
+
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-7">
+      <div>
+        <p class="text-[0.7rem] font-bold tracking-[0.14em] uppercase text-[#0f6b60]">Vértice Engenharia &amp; Projetos · Fale com a gente</p>
+        <h1 class="text-3xl font-bold mt-1">Contato e Localização</h1>
+        <p class="text-sm text-[#5b7873] mt-1 max-w-xl">Resposta técnica em até 1 dia útil. Toda mensagem entra na fila de atendimento do nosso time de engenharia.</p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button onclick="mostrarTela('catalogo-de-servicos')" class="px-4 py-2.5 rounded-lg text-sm font-semibold ct-tab hover:border-[#0f6b60]">Ver catálogo de serviços</button>
+        <button onclick="mostrarTela('cadastro-de-cliente')" class="px-4 py-2.5 rounded-lg text-sm font-semibold bg-[#0f6b60] text-white hover:bg-[#0b544b]">Abrir cadastro de cliente</button>
+      </div>
+    </div>
+
+    <div class="grid gap-6" style="grid-template-columns:repeat(auto-fit,minmax(420px,1fr))">
+
+      <div class="space-y-6">
+        <div class="ct-card p-6" id="ct-bloco-form">
+          <h2 class="text-xl font-bold">Envie sua mensagem</h2>
+          <p class="text-sm text-[#5b7873] mt-1 mb-5">Campos com <span class="text-[#b4442f] font-bold">*</span> são obrigatórios.</p>
+
+          <div class="grid gap-4" style="grid-template-columns:repeat(auto-fit,minmax(190px,1fr))">
+            <div>
+              <label class="ct-lb" for="ct-nome">Nome completo *</label>
+              <input id="ct-nome" class="ct-in" placeholder="Ex.: Mariana Toledo Rezende">
+            </div>
+            <div>
+              <label class="ct-lb" for="ct-email">E-mail *</label>
+              <input id="ct-email" class="ct-in" placeholder="mariana@construtoraalvorada.com.br">
+            </div>
+            <div>
+              <label class="ct-lb" for="ct-tel">Telefone / WhatsApp</label>
+              <input id="ct-tel" class="ct-in" placeholder="(19) 99814-2207">
+            </div>
+            <div>
+              <label class="ct-lb" for="ct-assunto">Assunto *</label>
+              <select id="ct-assunto" class="ct-in" onchange="contato_e_localizacao_assunto()">
+                <option value="">Selecione o assunto</option>
+                <option>Orçamento de projeto estrutural</option>
+                <option>Laudo técnico e vistoria predial</option>
+                <option>Gerenciamento de obra</option>
+                <option>Regularização e aprovação na prefeitura</option>
+                <option>Parceria com construtora</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <label class="ct-lb" for="ct-msg">Detalhe sua necessidade *</label>
+            <textarea id="ct-msg" rows="4" class="ct-in" oninput="contato_e_localizacao_conta()" placeholder="Ex.: Precisamos de projeto estrutural para um edifício residencial de 8 pavimentos em Valinhos, terreno de 640 m²."></textarea>
+            <div class="flex flex-wrap justify-between gap-2 mt-1.5">
+              <span class="text-xs text-[#5b7873]" id="ct-contador">0 caractere digitado</span>
+              <span class="text-xs text-[#5b7873]">Unidade escolhida: <b id="ct-unid-form" class="text-[#0f6b60]">Matriz — Campinas/SP</b></span>
+            </div>
+          </div>
+
+          <div class="mt-4 flex flex-wrap gap-2" id="ct-chips"></div>
+
+          <label class="flex items-start gap-2.5 mt-5 text-sm text-[#3d5a55]">
+            <input type="checkbox" id="ct-lgpd" class="mt-0.5 w-4 h-4 accent-[#0f6b60]">
+            <span>Autorizo o contato da Vértice e o registro dos meus dados conforme a LGPD.</span>
+          </label>
+
+          <p id="ct-erro" class="hidden mt-4 text-sm font-semibold text-[#b4442f] bg-[#fdf1ee] border border-[#f2cfc7] rounded-lg px-3 py-2"></p>
+
+          <div class="flex flex-wrap gap-3 mt-5">
+            <button onclick="contato_e_localizacao_enviar()" class="px-5 py-3 rounded-lg text-sm font-bold bg-[#c8892b] text-white hover:bg-[#a97120]">Registrar minha mensagem</button>
+            <button onclick="contato_e_localizacao_exemplo()" class="px-5 py-3 rounded-lg text-sm font-semibold ct-tab hover:border-[#0f6b60]">Preencher com dados de exemplo</button>
+          </div>
+        </div>
+
+        <div class="ct-card p-6 hidden" id="ct-bloco-ok">
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 shrink-0 rounded-full bg-[#e3f1ee] text-[#0f6b60] grid place-items-center text-xl font-bold">✓</div>
+            <div class="min-w-0">
+              <h2 class="text-xl font-bold">Mensagem registrada como lead</h2>
+              <p class="text-sm text-[#5b7873] mt-1">Protocolo <b class="text-[#12332f]" id="ct-proto">#VRT-2418</b> — já visível no painel administrativo, coluna “Novos contatos”.</p>
+            </div>
+          </div>
+          <dl class="grid gap-3 mt-5" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))" id="ct-resumo"></dl>
+          <div class="flex flex-wrap gap-3 mt-6">
+            <button onclick="mostrarTela('painel-administrativo')" class="px-5 py-3 rounded-lg text-sm font-bold bg-[#0f6b60] text-white hover:bg-[#0b544b]">Ver lead no painel administrativo</button>
+            <button onclick="mostrarTela('cadastro-de-cliente')" class="px-5 py-3 rounded-lg text-sm font-semibold ct-tab hover:border-[#0f6b60]">Completar cadastro de cliente</button>
+            <button onclick="contato_e_localizacao_nova()" class="px-5 py-3 rounded-lg text-sm font-semibold ct-tab hover:border-[#0f6b60]">Enviar outra mensagem</button>
+          </div>
+        </div>
+
+        <div class="ct-card p-6">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <h2 class="text-lg font-bold">Atendimento rápido</h2>
+            <a href="https://wa.me/551932554180" target="_blank" class="px-4 py-2 rounded-lg text-sm font-semibold bg-[#e3f1ee] text-[#0b544b] hover:bg-[#d1e8e3]">💬 Falar no WhatsApp</a>
+          </div>
+          <div class="mt-4 divide-y divide-[#e6eeec]" id="ct-faq"></div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div class="ct-card overflow-hidden">
+          <div class="flex flex-wrap gap-2 p-4 border-b border-[#e6eeec]" id="ct-tabs"></div>
+
+          <div class="relative h-[300px] ct-mapa">
+            <div class="absolute inset-0" id="ct-pin"></div>
+            <div class="absolute left-4 bottom-4 bg-white/95 rounded-lg px-3 py-2 text-xs font-semibold text-[#3d5a55] shadow">Rua Bento Quirino · Distrito Nova Campinas</div>
+            <div class="absolute right-4 top-4 flex flex-col gap-2">
+              <button onclick="contato_e_localizacao_zoom(1)" class="w-9 h-9 rounded-lg bg-white text-lg font-bold shadow hover:bg-[#e3f1ee]">+</button>
+              <button onclick="contato_e_localizacao_zoom(-1)" class="w-9 h-9 rounded-lg bg-white text-lg font-bold shadow hover:bg-[#e3f1ee]">−</button>
+            </div>
+            <div class="absolute right-4 bottom-4 bg-white/95 rounded-lg px-3 py-1.5 text-xs font-bold text-[#0f6b60] shadow" id="ct-zoom">Zoom 14x</div>
+          </div>
+
+          <div class="p-6">
+            <h3 class="text-lg font-bold" id="ct-titulo">Matriz — Campinas/SP</h3>
+            <p class="text-sm text-[#3d5a55] mt-1" id="ct-end">Av. José de Souza Campos, 1425 — Nova Campinas, Campinas/SP · CEP 13092-123</p>
+
+            <div class="grid gap-3 mt-5" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))">
+              <div class="bg-[#f4f7f6] rounded-lg p-3">
+                <span class="ct-lb">Telefone</span>
+                <a class="text-sm font-bold text-[#0f6b60] hover:underline" id="ct-tel-link" href="tel:+551932554180">(19) 3255-4180</a>
+              </div>
+              <div class="bg-[#f4f7f6] rounded-lg p-3">
+                <span class="ct-lb">E-mail</span>
+                <a class="text-sm font-bold text-[#0f6b60] hover:underline break-all" id="ct-mail-link" href="mailto:campinas@verticeengenharia.com.br">campinas@verticeengenharia.com.br</a>
+              </div>
+              <div class="bg-[#f4f7f6] rounded-lg p-3">
+                <span class="ct-lb">Responsável</span>
+                <span class="text-sm font-bold" id="ct-resp">Eng. Rafael Sanchez — CREA 5063412/SP</span>
+              </div>
+            </div>
+
+            <div class="mt-5">
+              <span class="ct-lb">Horários de atendimento</span>
+              <ul class="text-sm text-[#3d5a55] space-y-1.5" id="ct-horarios"></ul>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mt-5">
+              <button onclick="contato_e_localizacao_rota()" class="px-4 py-2.5 rounded-lg text-sm font-bold bg-[#0f6b60] text-white hover:bg-[#0b544b]" id="ct-btn-rota">Traçar rota até a unidade</button>
+              <button onclick="contato_e_localizacao_copiar(this)" class="px-4 py-2.5 rounded-lg text-sm font-semibold ct-tab hover:border-[#0f6b60]">Copiar endereço</button>
+            </div>
+            <p class="hidden mt-3 text-sm text-[#0b544b] bg-[#e3f1ee] rounded-lg px-3 py-2" id="ct-rota"></p>
+          </div>
+        </div>
+
+        <div class="ct-card p-6">
+          <h3 class="text-lg font-bold">Prefere que a gente ligue?</h3>
+          <p class="text-sm text-[#5b7873] mt-1">Escolha uma janela de horário e o time comercial retorna a ligação.</p>
+          <div class="flex flex-wrap gap-2 mt-4" id="ct-janelas"></div>
+          <p class="text-sm mt-4 text-[#3d5a55]" id="ct-janela-txt">Nenhuma janela escolhida.</p>
+          <button onclick="mostrarTela('home-institucional')" class="mt-5 text-sm font-semibold text-[#0f6b60] hover:underline">← Voltar para a home institucional</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ctUnidades=[
+ {id:0,nome:"Matriz — Campinas/SP",end:"Av. José de Souza Campos, 1425 — Nova Campinas, Campinas/SP · CEP 13092-123",tel:"(19) 3255-4180",telr:"+551932554180",mail:"campinas@verticeengenharia.com.br",resp:"Eng. Rafael Sanchez — CREA 5063412/SP",pos:[42,38],km:"—",hor:["Segunda a quinta · 08h00 às 18h00","Sexta · 08h00 às 17h00","Sábado · 09h00 às 13h00 (com agendamento)"]},
+ {id:1,nome:"Filial — Ribeirão Preto/SP",end:"Av. Presidente Vargas, 2001, sala 704 — Jardim Botânico, Ribeirão Preto/SP · CEP 14021-000",tel:"(16) 3620-7745",telr:"+551636207745",mail:"ribeirao@verticeengenharia.com.br",resp:"Eng.ª Carolina Bittencourt — CREA 5218907/SP",pos:[62,66],km:"213 km",hor:["Segunda a sexta · 08h30 às 18h00","Sábado · fechado"]},
+ {id:2,nome:"Filial — Sorocaba/SP",end:"Rua Barão de Piratininga, 480 — Centro, Sorocaba/SP · CEP 18010-330",tel:"(15) 3231-9060",telr:"+551532319060",mail:"sorocaba@verticeengenharia.com.br",resp:"Eng. Thiago Lemes Andrade — CREA 5477201/SP",pos:[28,72],km:"96 km",hor:["Segunda a sexta · 09h00 às 18h00","Plantão de obra · sábado, 08h às 12h"]}
+];
+const ctFaq=[
+ {p:"Vocês atendem obras fora do interior de São Paulo?",r:"Sim. Projetos e laudos são executados em todo o estado de São Paulo, sul de Minas e norte do Paraná, com visitas técnicas presenciais programadas."},
+ {p:"Qual o prazo médio de um projeto estrutural?",r:"De 12 a 25 dias úteis após a aprovação do projeto arquitetônico e da sondagem do terreno, dependendo do porte da obra."},
+ {p:"O orçamento inicial tem custo?",r:"Não. A primeira análise técnica e a proposta comercial são gratuitas; a vistoria in loco é cobrada apenas em laudos periciais."}
+];
+let ctSel=0,ctZoom=14,ctProto=2417,ctJanela="";
+function contato_e_localizacao_tabs(){
+ document.getElementById('ct-tabs').innerHTML=ctUnidades.map(u=>
+  '<button onclick="contato_e_localizacao_unidade('+u.id+')" class="ct-tab '+(u.id===ctSel?'on':'')+' px-4 py-2 rounded-lg text-sm font-semibold">'+u.nome+'</button>').join('');
+}
+function contato_e_localizacao_unidade(i){
+ ctSel=i;const u=ctUnidades[i];
+ document.getElementById('ct-titulo').textContent=u.nome;
+ document.getElementById('ct-end').textContent=u.end;
+ document.getElementById('ct-tel-link').textContent=u.tel;
+ document.getElementById('ct-tel-link').href='tel:'+u.telr;
+ document.getElementById('ct-mail-link').textContent=u.mail;
+ document.getElementById('ct-mail-link').href='mailto:'+u.mail;
+ document.getElementById('ct-resp').textContent=u.resp;
+ document.getElementById('ct-unid-form').textContent=u.nome;
+ document.getElementById('ct-horarios').innerHTML=u.hor.map(h=>'<li>• '+h+'</li>').join('');
+ document.getElementById('ct-pin').innerHTML='<div style="position:absolute;top:'+u.pos[0]+'%;left:'+u.pos[1]+'%;transform:translate(-50%,-100%)" class="text-center"><div class="w-8 h-8 rounded-full bg-[#b4442f] border-4 border-white shadow-lg mx-auto"></div><div class="mt-1 bg-white rounded px-2 py-0.5 text-[11px] font-bold shadow whitespace-nowrap">Vértice · '+u.nome.split(" — ")[1]+'</div></div>';
+ document.getElementById('ct-rota').classList.add('hidden');
+ document.getElementById('ct-btn-rota').textContent='Traçar rota até a unidade';
+ contato_e_localizacao_tabs();
+}
+function contato_e_localizacao_zoom(d){
+ ctZoom=Math.min(18,Math.max(11,ctZoom+d));
+ document.getElementById('ct-zoom').textContent='Zoom '+ctZoom+'x';
+}
+function contato_e_localizacao_rota(){
+ const u=ctUnidades[ctSel],p=document.getElementById('ct-rota');
+ p.classList.remove('hidden');
+ p.innerHTML='<b>Rota calculada:</b> saindo do centro de Campinas, '+(u.id===0?'2,8 km':u.km)+' · trajeto estimado em '+(u.id===0?'9 min':u.id===1?'2h35':'1h20')+'. Estacionamento conveniado no local.';
+ document.getElementById('ct-btn-rota').textContent='Recalcular rota';
+}
+function contato_e_localizacao_copiar(b){
+ const t=ctUnidades[ctSel].end;
+ if(navigator.clipboard){navigator.clipboard.writeText(t);}
+ b.textContent='Endereço copiado ✓';
+ setTimeout(()=>b.textContent='Copiar endereço',1800);
+}
+function contato_e_localizacao_conta(){
+ const n=document.getElementById('ct-msg').value.length;
+ document.getElementById('ct-contador').textContent=n+(n===1?' caractere digitado':' caracteres digitados');
+}
+function contato_e_localizacao_assunto(){
+ const a=document.getElementById('ct-assunto').value;
+ document.getElementById('ct-chips').innerHTML=a?'<span class="px-3 py-1.5 rounded-full text-xs font-bold bg-[#e3f1ee] text-[#0b544b]">Fila: '+a+'</span><span class="px-3 py-1.5 rounded-full text-xs font-bold bg-[#fdf6e7] text-[#8a5f12]">SLA de resposta: 1 dia útil</span>':'';
+}
+function contato_e_localizacao_exemplo(){
+ document.getElementById('ct-nome').value='Mariana Toledo Rezende';
+ document.getElementById('ct-email').value='mariana@construtoraalvorada.com.br';
+ document.getElementById('ct-tel').value='(19) 99814-2207';
+ document.getElementById('ct-assunto').value='Orçamento de projeto estrutural';
+ document.getElementById('ct-msg').value='Precisamos de projeto estrutural para edifício residencial de 8 pavimentos em Valinhos, terreno de 640 m². Já temos o arquitetônico aprovado.';
+ document.getElementById('ct-lgpd').checked=true;
+ contato_e_localizacao_conta();contato_e_localizacao_assunto();
+}
+function contato_e_localizacao_enviar(){
+ const n=document.getElementById('ct-nome').value.trim(),e=document.getElementById('ct-email').value.trim(),
+ a=document.getElementById('ct-assunto').value,m=document.getElementById('ct-msg').value.trim(),
+ lg=document.getElementById('ct-lgpd').checked,err=document.getElementById('ct-erro');
+ if(!n||!e||!a||!m||!lg){err.classList.remove('hidden');
+  err.textContent=!lg&&n&&e&&a&&m?'Marque a autorização de contato (LGPD) para concluir o envio.':'Preencha nome, e-mail, assunto, mensagem e a autorização de contato.';return;}
+ err.classList.add('hidden');ctProto++;
+ document.getElementById('ct-proto').textContent='#VRT-'+ctProto;
+ const u=ctUnidades[ctSel];
+ document.getElementById('ct-resumo').innerHTML=[['Solicitante',n],['E-mail',e],['Telefone',document.getElementById('ct-tel').value||'não informado'],['Assunto',a],['Unidade',u.nome],['Responsável designado',u.resp.split(' — ')[0]]]
+  .map(x=>'<div class="bg-[#f4f7f6] rounded-lg p-3"><span class="ct-lb">'+x[0]+'</span><span class="text-sm font-semibold break-words">'+x[1]+'</span></div>').join('')
+  +'<div class="bg-[#f4f7f6] rounded-lg p-3" style="grid-column:1/-1"><span class="ct-lb">Mensagem</span><span class="text-sm">'+m+'</span></div>';
+ document.getElementById('ct-bloco-form').classList.add('hidden');
+ document.getElementById('ct-bloco-ok').classList.remove('hidden');
+}
+function contato_e_localizacao_nova(){
+ ['ct-nome','ct-email','ct-tel','ct-msg'].forEach(i=>document.getElementById(i).value='');
+ document.getElementById('ct-assunto').value='';document.getElementById('ct-lgpd').checked=false;
+ contato_e_localizacao_conta();contato_e_localizacao_assunto();
+ document.getElementById('ct-bloco-ok').classList.add('hidden');
+ document.getElementById('ct-bloco-form').classList.remove('hidden');
+}
+function contato_e_localizacao_faq(i){
+ const el=document.getElementById('ct-faq-r'+i);
+ el.classList.toggle('hidden');
+}
+function contato_e_localizacao_janela(t,el){
+ ctJanela=t;
+ document.querySelectorAll('#ct-janelas .ct-tab').forEach(b=>b.classList.remove('on'));
+ el.classList.add('on');
+ document.getElementById('ct-janela-txt').innerHTML='Retorno agendado para <b>'+t+'</b> no telefone informado. O time comercial confirma por WhatsApp.';
+}
+(function(){
+ document.getElementById('ct-faq').innerHTML=ctFaq.map((f,i)=>
+  '<div class="py-3"><button onclick="contato_e_localizacao_faq('+i+')" class="w-full text-left text-sm font-semibold text-[#12332f] hover:text-[#0f6b60] flex justify-between gap-3"><span>'+f.p+'</span><span class="text-[#0f6b60]">＋</span></button><p id="ct-faq-r'+i+'" class="hidden text-sm text-[#5b7873] mt-2">'+f.r+'</p></div>').join('');
+ document.getElementById('ct-janelas').innerHTML=['Hoje, 14h às 16h','Amanhã, 09h às 11h','Sexta, 16h às 18h']
+  .map(t=>'<button onclick="contato_e_localizacao_janela(\''+t+'\',this)" class="ct-tab px-4 py-2 rounded-lg text-sm font-semibold">'+t+'</button>').join('');
+ contato_e_localizacao_unidade(0);
+})();
+</script>
+</section>
+
     <!-- TELAS -->
 </main>
 
