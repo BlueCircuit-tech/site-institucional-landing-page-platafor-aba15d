@@ -695,6 +695,275 @@
   </script>
 </section>
 
+    <section data-tela="detalhe-do-servico" class="hidden">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap');
+    [data-tela="detalhe-do-servico"]{font-family:'Archivo',sans-serif;color:#123340}
+    [data-tela="detalhe-do-servico"] h1,[data-tela="detalhe-do-servico"] h2,[data-tela="detalhe-do-servico"] h3{font-family:'Barlow Condensed',sans-serif;letter-spacing:.02em}
+    .ds-card{background:#fff;border:1px solid #dde7ea;border-radius:14px}
+    .ds-foto{background:linear-gradient(135deg,#0f3d4c 0%,#14808f 55%,#3fb6bf 100%);position:relative;overflow:hidden}
+    .ds-foto:after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.10) 0 2px,transparent 2px 16px)}
+    .ds-aba{padding:.6rem 1.1rem;border-bottom:3px solid transparent;font-weight:600;color:#5b7480;cursor:pointer;white-space:nowrap}
+    .ds-aba.ativa{border-color:#f59e0b;color:#0f3d4c}
+    .ds-thumb{border:2px solid transparent;border-radius:10px;cursor:pointer}
+    .ds-thumb.ativa{border-color:#f59e0b}
+  </style>
+
+  <div class="max-w-[1180px] mx-auto px-6 py-8">
+    <nav class="flex flex-wrap items-center gap-2 text-sm text-[#5b7480] mb-6">
+      <button onclick="mostrarTela('home-institucional')" class="hover:text-[#14808f] font-medium">Início</button>
+      <span>›</span>
+      <button onclick="mostrarTela('catalogo-de-servicos')" class="hover:text-[#14808f] font-medium">Catálogo de serviços</button>
+      <span>›</span>
+      <span class="text-[#0f3d4c] font-semibold" id="ds-crumb">Instalação de Split Inverter</span>
+    </nav>
+
+    <div class="grid gap-8" style="grid-template-columns:repeat(auto-fit,minmax(340px,1fr))">
+      <div>
+        <div class="ds-foto h-[330px] rounded-2xl flex flex-col items-center justify-center text-white">
+          <span class="text-6xl relative z-10" id="ds-foto-icone">❄️</span>
+          <p class="mt-3 text-sm font-semibold relative z-10 tracking-wide uppercase" id="ds-foto-legenda">Instalação em condomínio — Bairro Batel, Curitiba</p>
+        </div>
+        <div class="grid grid-cols-4 gap-3 mt-3">
+          <div class="ds-thumb ativa p-1" data-thumb="0" onclick="detalhe_do_servico_trocarFoto(0)">
+            <div class="ds-foto h-16 rounded-lg flex items-center justify-center text-2xl">❄️</div>
+          </div>
+          <div class="ds-thumb p-1" data-thumb="1" onclick="detalhe_do_servico_trocarFoto(1)">
+            <div class="ds-foto h-16 rounded-lg flex items-center justify-center text-2xl">🔧</div>
+          </div>
+          <div class="ds-thumb p-1" data-thumb="2" onclick="detalhe_do_servico_trocarFoto(2)">
+            <div class="ds-foto h-16 rounded-lg flex items-center justify-center text-2xl">📐</div>
+          </div>
+          <div class="ds-thumb p-1" data-thumb="3" onclick="detalhe_do_servico_trocarFoto(3)">
+            <div class="ds-foto h-16 rounded-lg flex items-center justify-center text-2xl">🏢</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex flex-wrap gap-2 mb-3">
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#e6f4f5] text-[#0f6874]">RESIDENCIAL E CORPORATIVO</span>
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#fef3c7] text-[#92400e]">SELO PROCEL A</span>
+        </div>
+        <h1 class="text-4xl leading-tight font-bold text-[#0f3d4c]" id="ds-titulo">Instalação de Ar-Condicionado Split Inverter</h1>
+        <p class="mt-3 text-[#48626d] leading-relaxed" id="ds-resumo">
+          Instalação completa realizada por técnicos com certificação NR-35 e NR-10, incluindo vácuo na linha
+          frigorígena, teste de estanqueidade e emissão de laudo de garantia de 24 meses no serviço.
+        </p>
+
+        <div class="flex flex-wrap items-end gap-6 mt-6">
+          <div>
+            <span class="block text-xs text-[#5b7480] font-semibold uppercase">A partir de</span>
+            <span class="text-3xl font-bold text-[#0f3d4c]" id="ds-preco">R$ 890,00</span>
+            <span class="text-sm text-[#5b7480]">/ equipamento</span>
+          </div>
+          <div class="text-sm">
+            <span class="text-[#f59e0b] text-base">★★★★★</span>
+            <span class="font-semibold">4,9</span>
+            <span class="text-[#5b7480]">· 212 avaliações</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3 mt-6">
+          <button onclick="mostrarTela('cadastro-de-cliente')" class="px-6 py-3 rounded-xl bg-[#0f3d4c] text-white font-semibold hover:bg-[#14808f] transition">Solicitar orçamento</button>
+          <button onclick="detalhe_do_servico_whats()" class="px-6 py-3 rounded-xl bg-[#f59e0b] text-[#3b2200] font-semibold hover:bg-[#d98a06] transition">Falar no WhatsApp</button>
+          <button onclick="mostrarTela('contato-e-localizacao')" class="px-6 py-3 rounded-xl border border-[#0f3d4c] text-[#0f3d4c] font-semibold hover:bg-[#e6f4f5] transition">Ver unidade mais próxima</button>
+        </div>
+
+        <div class="ds-card mt-6 p-4 grid gap-3" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+          <div><p class="text-xs text-[#5b7480] font-semibold">ATENDIMENTO</p><p class="font-semibold text-sm">Curitiba e Região Metropolitana</p></div>
+          <div><p class="text-xs text-[#5b7480] font-semibold">PRAZO DE AGENDA</p><p class="font-semibold text-sm">2 a 4 dias úteis</p></div>
+          <div><p class="text-xs text-[#5b7480] font-semibold">GARANTIA</p><p class="font-semibold text-sm">24 meses no serviço</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid gap-8 mt-12" style="grid-template-columns:repeat(auto-fit,minmax(330px,1fr))">
+      <div class="lg:col-span-2" style="grid-column:span 1">
+        <div class="ds-card overflow-hidden">
+          <div class="flex overflow-x-auto border-b border-[#dde7ea] bg-[#f7fafb]">
+            <div class="ds-aba ativa" data-aba="desc" onclick="detalhe_do_servico_aba('desc')">Descrição</div>
+            <div class="ds-aba" data-aba="tec" onclick="detalhe_do_servico_aba('tec')">Informações técnicas</div>
+            <div class="ds-aba" data-aba="inc" onclick="detalhe_do_servico_aba('inc')">O que está incluso</div>
+          </div>
+
+          <div class="p-6" data-conteudo="desc">
+            <h3 class="text-2xl font-bold text-[#0f3d4c] mb-2">Como funciona o serviço</h3>
+            <p class="text-[#48626d] leading-relaxed">
+              Nossa equipe faz a visita técnica gratuita para conferir a carga térmica do ambiente, o ponto elétrico
+              e o melhor traçado da tubulação. No dia da instalação chegamos com bomba de vácuo, manifold digital e
+              todo o material de fixação — sem precisar comprar nada por fora.
+            </p>
+            <ol class="mt-4 space-y-3 text-sm">
+              <li class="flex gap-3"><span class="w-6 h-6 shrink-0 rounded-full bg-[#e6f4f5] text-[#0f6874] font-bold flex items-center justify-center">1</span><span><b>Visita técnica</b> — medição do ambiente e checagem do disjuntor dedicado.</span></li>
+              <li class="flex gap-3"><span class="w-6 h-6 shrink-0 rounded-full bg-[#e6f4f5] text-[#0f6874] font-bold flex items-center justify-center">2</span><span><b>Orçamento fechado</b> — enviado em até 6 horas, válido por 15 dias.</span></li>
+              <li class="flex gap-3"><span class="w-6 h-6 shrink-0 rounded-full bg-[#e6f4f5] text-[#0f6874] font-bold flex items-center justify-center">3</span><span><b>Instalação</b> — 3h a 5h por equipamento, com proteção de piso e móveis.</span></li>
+              <li class="flex gap-3"><span class="w-6 h-6 shrink-0 rounded-full bg-[#e6f4f5] text-[#0f6874] font-bold flex items-center justify-center">4</span><span><b>Entrega técnica</b> — teste de temperatura, laudo assinado e ART quando exigida.</span></li>
+            </ol>
+          </div>
+
+          <div class="p-6 hidden" data-conteudo="tec">
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm min-w-[520px]">
+                <tbody>
+                  <tr class="border-b border-[#eef4f5]"><td class="py-3 pr-4 text-[#5b7480] font-semibold w-1/2">Capacidades atendidas</td><td class="py-3 font-semibold">9.000 a 60.000 BTU/h</td></tr>
+                  <tr class="border-b border-[#eef4f5]"><td class="py-3 pr-4 text-[#5b7480] font-semibold">Gases refrigerantes</td><td class="py-3 font-semibold">R-32 e R-410A</td></tr>
+                  <tr class="border-b border-[#eef4f5]"><td class="py-3 pr-4 text-[#5b7480] font-semibold">Tubulação inclusa</td><td class="py-3 font-semibold">Até 3 m de cobre flexível + isolamento</td></tr>
+                  <tr class="border-b border-[#eef4f5]"><td class="py-3 pr-4 text-[#5b7480] font-semibold">Metro adicional</td><td class="py-3 font-semibold">R$ 120,00 / m</td></tr>
+                  <tr class="border-b border-[#eef4f5]"><td class="py-3 pr-4 text-[#5b7480] font-semibold">Normas seguidas</td><td class="py-3 font-semibold">ABNT NBR 16401 / NR-35 / NR-10</td></tr>
+                  <tr><td class="py-3 pr-4 text-[#5b7480] font-semibold">Emissão de nota fiscal</td><td class="py-3 font-semibold">Sim — PF e PJ (CNPJ com retenção)</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="p-6 hidden" data-conteudo="inc">
+            <div class="grid gap-4" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+              <div><p class="font-bold text-[#0f6874] mb-2">✔ Incluído no valor</p><ul class="space-y-1 text-sm text-[#48626d]"><li>• Suporte metálico da condensadora</li><li>• Vácuo e teste de estanqueidade</li><li>• Dreno com veda-rosca e caimento</li><li>• Limpeza do local ao final</li></ul></div>
+              <div><p class="font-bold text-[#92400e] mb-2">✖ Cobrado à parte</p><ul class="space-y-1 text-sm text-[#48626d]"><li>• Ponto elétrico novo (R$ 320,00)</li><li>• Furação em concreto estrutural</li><li>• Andaime ou rapel acima do 3º andar</li><li>• Tubulação além de 3 metros</li></ul></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="ds-card p-5">
+          <h3 class="text-xl font-bold text-[#0f3d4c]">Estimativa rápida</h3>
+          <p class="text-sm text-[#5b7480] mb-4">Sem compromisso — o valor final sai após a visita técnica.</p>
+          <label class="block text-xs font-bold text-[#5b7480] uppercase mb-1">Capacidade do aparelho</label>
+          <select id="ds-btu" onchange="detalhe_do_servico_estimar()" class="w-full mb-3 border border-[#cfdde1] rounded-lg px-3 py-2 text-sm bg-white">
+            <option value="890">9.000 BTU/h — R$ 890</option>
+            <option value="990">12.000 BTU/h — R$ 990</option>
+            <option value="1380">18.000 BTU/h — R$ 1.380</option>
+            <option value="1690">24.000 BTU/h — R$ 1.690</option>
+          </select>
+          <label class="block text-xs font-bold text-[#5b7480] uppercase mb-1">Quantidade de equipamentos</label>
+          <select id="ds-qtd" onchange="detalhe_do_servico_estimar()" class="w-full mb-3 border border-[#cfdde1] rounded-lg px-3 py-2 text-sm bg-white">
+            <option value="1">1 equipamento</option>
+            <option value="2">2 equipamentos</option>
+            <option value="3">3 equipamentos</option>
+          </select>
+          <label class="block text-xs font-bold text-[#5b7480] uppercase mb-1">Metros extras de tubulação</label>
+          <input id="ds-metros" type="number" min="0" max="20" value="0" oninput="detalhe_do_servico_estimar()" class="w-full mb-3 border border-[#cfdde1] rounded-lg px-3 py-2 text-sm">
+          <label class="flex items-center gap-2 text-sm mb-4"><input id="ds-eletrico" type="checkbox" onchange="detalhe_do_servico_estimar()" class="w-4 h-4"> Preciso de ponto elétrico novo</label>
+          <div class="bg-[#0f3d4c] text-white rounded-xl p-4">
+            <span class="text-xs uppercase font-semibold text-[#9fd4da]">Estimativa</span>
+            <p class="text-3xl font-bold" id="ds-estimativa">R$ 890,00</p>
+            <p class="text-xs text-[#9fd4da] mt-1" id="ds-detalhe-est">1 × 9.000 BTU/h · sem extras</p>
+          </div>
+          <button onclick="mostrarTela('cadastro-de-cliente')" class="w-full mt-4 py-3 rounded-xl bg-[#f59e0b] text-[#3b2200] font-bold hover:bg-[#d98a06] transition">Quero este orçamento</button>
+        </div>
+
+        <div class="ds-card p-5 mt-5">
+          <h3 class="text-lg font-bold text-[#0f3d4c] mb-2">Precisa de ajuda agora?</h3>
+          <p class="text-sm text-[#48626d] mb-3">Atendimento humano de segunda a sábado, das 8h às 18h.</p>
+          <button onclick="detalhe_do_servico_whats()" class="w-full py-2.5 rounded-lg bg-[#e6f4f5] text-[#0f6874] font-semibold text-sm hover:bg-[#d3ebee]">Abrir chat de suporte</button>
+          <p id="ds-aviso-chat" class="hidden mt-3 text-xs font-semibold text-[#0f6874] bg-[#e6f4f5] rounded-lg p-3">Conversa iniciada com o técnico Rodrigo Meireles. Redirecionando para o canal de contato…</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <h2 class="text-3xl font-bold text-[#0f3d4c]">Serviços relacionados</h2>
+        <button onclick="mostrarTela('catalogo-de-servicos')" class="text-sm font-semibold text-[#14808f] hover:underline">Ver catálogo completo →</button>
+      </div>
+      <div class="grid gap-5" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr))">
+        <div class="ds-card p-5 cursor-pointer hover:border-[#14808f] transition" onclick="detalhe_do_servico_relacionado('higienizacao')">
+          <div class="ds-foto h-24 rounded-lg flex items-center justify-center text-3xl mb-3">🧴</div>
+          <h3 class="text-xl font-bold text-[#0f3d4c]">Higienização Completa de Split</h3>
+          <p class="text-sm text-[#5b7480] mt-1">Lavagem de serpentina, turbina e bandeja com produto bactericida.</p>
+          <p class="mt-2 font-bold text-[#14808f]">A partir de R$ 240,00</p>
+        </div>
+        <div class="ds-card p-5 cursor-pointer hover:border-[#14808f] transition" onclick="detalhe_do_servico_relacionado('pmoc')">
+          <div class="ds-foto h-24 rounded-lg flex items-center justify-center text-3xl mb-3">📋</div>
+          <h3 class="text-xl font-bold text-[#0f3d4c]">Plano PMOC para Empresas</h3>
+          <p class="text-sm text-[#5b7480] mt-1">Manutenção preventiva mensal com relatório assinado por engenheiro.</p>
+          <p class="mt-2 font-bold text-[#14808f]">A partir de R$ 1.150,00/mês</p>
+        </div>
+        <div class="ds-card p-5 cursor-pointer hover:border-[#14808f] transition" onclick="detalhe_do_servico_relacionado('cassete')">
+          <div class="ds-foto h-24 rounded-lg flex items-center justify-center text-3xl mb-3">🏢</div>
+          <h3 class="text-xl font-bold text-[#0f3d4c]">Instalação de Cassete 4 Vias</h3>
+          <p class="text-sm text-[#5b7480] mt-1">Para lojas, clínicas e escritórios com forro de gesso ou modular.</p>
+          <p class="mt-2 font-bold text-[#14808f]">A partir de R$ 2.480,00</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 rounded-2xl p-8 flex flex-wrap items-center justify-between gap-6" style="background:#0f3d4c">
+      <div>
+        <h2 class="text-3xl font-bold text-white">Visita técnica gratuita em Curitiba</h2>
+        <p class="text-[#9fd4da] mt-1">Rua Nunes Machado, 1420 — Rebouças · (41) 3555-2180</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <button onclick="mostrarTela('cadastro-de-cliente')" class="px-6 py-3 rounded-xl bg-[#f59e0b] text-[#3b2200] font-bold">Agendar visita</button>
+        <button onclick="mostrarTela('contato-e-localizacao')" class="px-6 py-3 rounded-xl border border-[#4d8b98] text-white font-semibold hover:bg-[#14808f]">Ver no mapa</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var detalhe_do_servico_fotos = [
+      ['❄️','Instalação em condomínio — Bairro Batel, Curitiba'],
+      ['🔧','Vácuo na linha frigorígena com manifold digital'],
+      ['📐','Traçado de tubulação e furação com nível a laser'],
+      ['🏢','Bateria de condensadoras em fachada técnica']
+    ];
+    function detalhe_do_servico_trocarFoto(i){
+      document.getElementById('ds-foto-icone').textContent = detalhe_do_servico_fotos[i][0];
+      document.getElementById('ds-foto-legenda').textContent = detalhe_do_servico_fotos[i][1];
+      document.querySelectorAll('[data-tela="detalhe-do-servico"] .ds-thumb').forEach(function(t){
+        t.classList.toggle('ativa', t.getAttribute('data-thumb') == i);
+      });
+    }
+    function detalhe_do_servico_aba(nome){
+      document.querySelectorAll('[data-tela="detalhe-do-servico"] .ds-aba').forEach(function(a){
+        a.classList.toggle('ativa', a.getAttribute('data-aba') === nome);
+      });
+      document.querySelectorAll('[data-tela="detalhe-do-servico"] [data-conteudo]').forEach(function(c){
+        c.classList.toggle('hidden', c.getAttribute('data-conteudo') !== nome);
+      });
+    }
+    function detalhe_do_servico_estimar(){
+      var base = parseInt(document.getElementById('ds-btu').value,10);
+      var qtd = parseInt(document.getElementById('ds-qtd').value,10);
+      var m = parseInt(document.getElementById('ds-metros').value || '0',10);
+      var el = document.getElementById('ds-eletrico').checked;
+      var total = base*qtd + m*120 + (el ? 320*qtd : 0);
+      document.getElementById('ds-estimativa').textContent = 'R$ ' + total.toLocaleString('pt-BR',{minimumFractionDigits:2});
+      var btuTxt = document.getElementById('ds-btu').selectedOptions[0].text.split(' —')[0];
+      var extras = [];
+      if(m>0) extras.push(m + ' m extras');
+      if(el) extras.push('ponto elétrico');
+      document.getElementById('ds-detalhe-est').textContent = qtd + ' × ' + btuTxt + ' · ' + (extras.length ? extras.join(' + ') : 'sem extras');
+    }
+    function detalhe_do_servico_whats(){
+      var av = document.getElementById('ds-aviso-chat');
+      av.classList.remove('hidden');
+      setTimeout(function(){ mostrarTela('contato-e-localizacao'); }, 900);
+    }
+    var detalhe_do_servico_itens = {
+      higienizacao:{t:'Higienização Completa de Split',c:'Higienização de Split',p:'R$ 240,00',u:'/ aparelho',i:'🧴',
+        r:'Limpeza técnica com desmontagem da turbina, lavagem química da serpentina e aplicação de bactericida registrado na ANVISA. Indicada a cada 6 meses para quem tem rinite ou asma.'},
+      pmoc:{t:'Plano PMOC para Empresas',c:'Plano PMOC',p:'R$ 1.150,00',u:'/ mês',i:'📋',
+        r:'Programa de Manutenção, Operação e Controle conforme a Lei 13.589/2018, com cronograma mensal, planilhas assinadas por engenheiro mecânico e atendimento corretivo prioritário em 8 horas.'},
+      cassete:{t:'Instalação de Cassete 4 Vias',c:'Cassete 4 Vias',p:'R$ 2.480,00',u:'/ equipamento',i:'🏢',
+        r:'Instalação de unidades cassete embutidas em forro, com recorte de gesso, apoio em barras roscadas, dreno com bomba de condensado e balanceamento do fluxo de ar nas quatro vias.'}
+    };
+    function detalhe_do_servico_relacionado(k){
+      var d = detalhe_do_servico_itens[k];
+      document.getElementById('ds-titulo').textContent = d.t;
+      document.getElementById('ds-crumb').textContent = d.c;
+      document.getElementById('ds-preco').textContent = d.p;
+      document.getElementById('ds-resumo').textContent = d.r;
+      document.getElementById('ds-foto-icone').textContent = d.i;
+      document.getElementById('ds-foto-legenda').textContent = d.t + ' — equipe BlueClima em campo';
+      window.scrollTo({top:0,behavior:'smooth'});
+      detalhe_do_servico_aba('desc');
+    }
+  </script>
+</section>
+
     <!-- TELAS -->
 </main>
 
