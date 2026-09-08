@@ -964,6 +964,324 @@
   </script>
 </section>
 
+    <section data-tela="cadastro-de-cliente" class="hidden">
+  <style>
+    .cc-input{width:100%;border:1px solid #d8d3c6;background:#fff;border-radius:.5rem;padding:.65rem .85rem;font-size:.9rem;color:#2a2620;outline:none}
+    .cc-input:focus{border-color:#1f5d4c;box-shadow:0 0 0 3px rgba(31,93,76,.12)}
+    .cc-label{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#7a7264;margin-bottom:.35rem;font-weight:600}
+    .cc-card{background:#fff;border:1px solid #e6e1d6;border-radius:.9rem}
+    .cc-chip{font-size:.68rem;font-weight:700;padding:.2rem .55rem;border-radius:999px;letter-spacing:.04em;text-transform:uppercase}
+    .cc-tab{padding:.55rem 1.1rem;border-radius:.5rem;font-size:.85rem;font-weight:600;color:#7a7264;cursor:pointer}
+    .cc-tab-on{background:#1f5d4c;color:#fff}
+  </style>
+
+  <div class="px-8 py-8 max-w-[1180px] mx-auto">
+
+    <div id="cc-area-form">
+      <div class="flex flex-wrap items-end justify-between gap-4 mb-7">
+        <div>
+          <p class="text-[.7rem] tracking-[.18em] uppercase text-[#a3907a] font-bold mb-1">Área do cliente</p>
+          <h1 class="text-3xl font-semibold text-[#22201c]" style="font-family:Georgia,serif">Crie sua conta na Vértice</h1>
+          <p class="text-sm text-[#6f6759] mt-2 max-w-xl">Acompanhe orçamentos, aprove propostas e converse com nosso time de engenharia sem trocar dezenas de e-mails.</p>
+        </div>
+        <div class="flex gap-1 bg-[#f1eee6] p-1 rounded-lg">
+          <div id="cc-tab-novo" class="cc-tab cc-tab-on" onclick="cadastro_de_cliente_aba('novo')">Novo cadastro</div>
+          <div id="cc-tab-login" class="cc-tab" onclick="cadastro_de_cliente_aba('login')">Já sou cliente</div>
+        </div>
+      </div>
+
+      <div class="grid gap-6" style="grid-template-columns:repeat(auto-fit,minmax(330px,1fr))">
+
+        <div class="cc-card p-6 lg:col-span-2">
+          <div id="cc-form-novo">
+            <div class="grid gap-4" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+              <div>
+                <label class="cc-label">Nome completo</label>
+                <input id="cc-nome" class="cc-input" placeholder="Ex.: Renata Aguiar Belmonte" oninput="cadastro_de_cliente_previa()">
+              </div>
+              <div>
+                <label class="cc-label">E-mail</label>
+                <input id="cc-email" class="cc-input" placeholder="renata@construtorabelmonte.com.br" oninput="cadastro_de_cliente_previa()">
+              </div>
+              <div>
+                <label class="cc-label">Telefone / WhatsApp</label>
+                <input id="cc-tel" class="cc-input" placeholder="(31) 98814-2270" oninput="cadastro_de_cliente_previa()">
+              </div>
+              <div>
+                <label class="cc-label">Cidade</label>
+                <select id="cc-cidade" class="cc-input" onchange="cadastro_de_cliente_previa()">
+                  <option>Belo Horizonte - MG</option>
+                  <option>Contagem - MG</option>
+                  <option>Nova Lima - MG</option>
+                  <option>Uberlândia - MG</option>
+                  <option>São Paulo - SP</option>
+                </select>
+              </div>
+              <div>
+                <label class="cc-label">Senha</label>
+                <input id="cc-senha" type="password" class="cc-input" placeholder="Mínimo 8 caracteres" oninput="cadastro_de_cliente_previa()">
+              </div>
+              <div>
+                <label class="cc-label">Confirmar senha</label>
+                <input id="cc-senha2" type="password" class="cc-input" placeholder="Repita a senha">
+              </div>
+            </div>
+
+            <div class="mt-5">
+              <label class="cc-label">Qual serviço você procura?</label>
+              <div class="flex flex-wrap gap-2" id="cc-interesses">
+                <button type="button" onclick="cadastro_de_cliente_interesse(this,'Projeto arquitetônico')" class="px-3 py-1.5 rounded-full border border-[#d8d3c6] text-[.8rem] text-[#4a4437] hover:border-[#1f5d4c]">Projeto arquitetônico</button>
+                <button type="button" onclick="cadastro_de_cliente_interesse(this,'Reforma corporativa')" class="px-3 py-1.5 rounded-full border border-[#d8d3c6] text-[.8rem] text-[#4a4437] hover:border-[#1f5d4c]">Reforma corporativa</button>
+                <button type="button" onclick="cadastro_de_cliente_interesse(this,'Laudo estrutural')" class="px-3 py-1.5 rounded-full border border-[#d8d3c6] text-[.8rem] text-[#4a4437] hover:border-[#1f5d4c]">Laudo estrutural</button>
+                <button type="button" onclick="cadastro_de_cliente_interesse(this,'Regularização de obra')" class="px-3 py-1.5 rounded-full border border-[#d8d3c6] text-[.8rem] text-[#4a4437] hover:border-[#1f5d4c]">Regularização de obra</button>
+              </div>
+            </div>
+
+            <label class="flex items-start gap-3 mt-6 text-sm text-[#5d5648] cursor-pointer">
+              <input id="cc-termos" type="checkbox" class="mt-0.5 w-4 h-4 accent-[#1f5d4c]" onchange="cadastro_de_cliente_previa()">
+              <span>Li e aceito os <span class="underline decoration-[#a3907a]">termos de uso</span> e a política de privacidade (LGPD). Autorizo o contato sobre meus orçamentos.</span>
+            </label>
+
+            <p id="cc-erro" class="hidden mt-4 text-sm text-[#a3402f] bg-[#fbeeeb] border border-[#f0d3cc] rounded-lg px-3 py-2"></p>
+
+            <div class="flex flex-wrap gap-3 mt-6">
+              <button onclick="cadastro_de_cliente_criar()" class="px-6 py-3 rounded-lg bg-[#1f5d4c] text-white text-sm font-semibold hover:bg-[#18493c]">Criar conta e ver meus orçamentos</button>
+              <button onclick="mostrarTela('catalogo-de-servicos')" class="px-6 py-3 rounded-lg border border-[#d8d3c6] text-sm font-semibold text-[#4a4437] hover:bg-[#f7f5ef]">Ver catálogo antes</button>
+            </div>
+          </div>
+
+          <div id="cc-form-login" class="hidden">
+            <div class="max-w-md">
+              <label class="cc-label">E-mail cadastrado</label>
+              <input id="cc-login-email" class="cc-input mb-4" value="renata@construtorabelmonte.com.br">
+              <label class="cc-label">Senha</label>
+              <input id="cc-login-senha" type="password" class="cc-input mb-2" value="••••••••">
+              <p class="text-xs text-[#8a8172] mb-5">Acesso de demonstração já preenchido.</p>
+              <button onclick="cadastro_de_cliente_login()" class="w-full px-6 py-3 rounded-lg bg-[#1f5d4c] text-white text-sm font-semibold hover:bg-[#18493c]">Entrar na área do cliente</button>
+              <button onclick="mostrarTela('contato-e-localizacao')" class="w-full mt-3 px-6 py-3 rounded-lg border border-[#d8d3c6] text-sm font-semibold text-[#4a4437] hover:bg-[#f7f5ef]">Não consigo acessar — falar com atendimento</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc-card p-6 bg-[#faf8f2]">
+          <p class="text-[.7rem] tracking-[.16em] uppercase text-[#a3907a] font-bold mb-4">Prévia do seu cadastro</p>
+          <div class="flex items-center gap-3 mb-5">
+            <div id="cc-avatar" class="w-12 h-12 rounded-full bg-[#1f5d4c] text-white flex items-center justify-center text-lg font-semibold">VP</div>
+            <div>
+              <p id="cc-p-nome" class="font-semibold text-[#22201c]">Seu nome aparece aqui</p>
+              <p id="cc-p-cidade" class="text-xs text-[#7a7264]">Belo Horizonte - MG</p>
+            </div>
+          </div>
+          <dl class="text-sm space-y-3">
+            <div class="flex justify-between gap-3"><dt class="text-[#7a7264]">E-mail</dt><dd id="cc-p-email" class="text-[#3d382e] text-right">—</dd></div>
+            <div class="flex justify-between gap-3"><dt class="text-[#7a7264]">Telefone</dt><dd id="cc-p-tel" class="text-[#3d382e] text-right">—</dd></div>
+            <div class="flex justify-between gap-3"><dt class="text-[#7a7264]">Interesses</dt><dd id="cc-p-int" class="text-[#3d382e] text-right">—</dd></div>
+            <div class="flex justify-between gap-3"><dt class="text-[#7a7264]">Senha</dt><dd id="cc-p-senha" class="text-[#3d382e] text-right">—</dd></div>
+            <div class="flex justify-between gap-3"><dt class="text-[#7a7264]">Termos</dt><dd id="cc-p-termos" class="text-[#a3402f] text-right font-semibold">Pendente</dd></div>
+          </dl>
+          <div class="mt-6 pt-5 border-t border-[#e6e1d6] text-sm text-[#5d5648]">
+            <p class="font-semibold text-[#22201c] mb-1">Resposta em até 24h úteis</p>
+            <p>Cada solicitação é avaliada por um engenheiro do escritório antes do orçamento sair.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="cc-area-cliente" class="hidden">
+      <div class="rounded-xl bg-[#1f5d4c] text-white p-7 mb-6 flex flex-wrap items-center justify-between gap-5">
+        <div>
+          <p class="text-[.7rem] tracking-[.18em] uppercase text-[#9dc4b7] font-bold mb-1">Conta ativa</p>
+          <h1 class="text-2xl font-semibold" style="font-family:Georgia,serif">Olá, <span id="cc-boas-vindas">Renata</span>. Bem-vinda de volta.</h1>
+          <p class="text-sm text-[#c6ded6] mt-1"><span id="cc-boas-email">renata@construtorabelmonte.com.br</span> · <span id="cc-boas-cidade">Belo Horizonte - MG</span></p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <button onclick="mostrarTela('catalogo-de-servicos')" class="px-5 py-2.5 rounded-lg bg-[#a3907a] text-white text-sm font-semibold hover:bg-[#8f7d68]">Solicitar novo orçamento</button>
+          <button onclick="cadastro_de_cliente_sair()" class="px-5 py-2.5 rounded-lg border border-[#4a7d6e] text-sm font-semibold hover:bg-[#18493c]">Sair da conta</button>
+        </div>
+      </div>
+
+      <div class="grid gap-5 mb-6" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+        <div class="cc-card p-5"><p class="text-[.7rem] uppercase tracking-[.12em] text-[#8a8172] font-bold">Orçamentos abertos</p><p class="text-3xl font-semibold text-[#1f5d4c] mt-2">2</p></div>
+        <div class="cc-card p-5"><p class="text-[.7rem] uppercase tracking-[.12em] text-[#8a8172] font-bold">Aguardando aprovação</p><p class="text-3xl font-semibold text-[#a3907a] mt-2">1</p></div>
+        <div class="cc-card p-5"><p class="text-[.7rem] uppercase tracking-[.12em] text-[#8a8172] font-bold">Valor em proposta</p><p class="text-3xl font-semibold text-[#22201c] mt-2">R$ 148.900</p></div>
+        <div class="cc-card p-5"><p class="text-[.7rem] uppercase tracking-[.12em] text-[#8a8172] font-bold">Projetos concluídos</p><p class="text-3xl font-semibold text-[#22201c] mt-2">3</p></div>
+      </div>
+
+      <div class="cc-card overflow-hidden">
+        <div class="flex flex-wrap items-center justify-between gap-3 px-6 py-4 border-b border-[#e6e1d6]">
+          <h2 class="font-semibold text-[#22201c] text-lg">Minhas solicitações</h2>
+          <div class="flex gap-2">
+            <button onclick="cadastro_de_cliente_filtrar('todos',this)" class="cc-filtro px-3 py-1.5 rounded-md text-xs font-semibold bg-[#1f5d4c] text-white">Todas</button>
+            <button onclick="cadastro_de_cliente_filtrar('andamento',this)" class="cc-filtro px-3 py-1.5 rounded-md text-xs font-semibold border border-[#d8d3c6] text-[#5d5648]">Em andamento</button>
+            <button onclick="cadastro_de_cliente_filtrar('proposta',this)" class="cc-filtro px-3 py-1.5 rounded-md text-xs font-semibold border border-[#d8d3c6] text-[#5d5648]">Proposta enviada</button>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm min-w-[860px]">
+            <thead class="bg-[#f7f5ef] text-[#7a7264] text-[.7rem] uppercase tracking-[.1em]">
+              <tr>
+                <th class="text-left px-6 py-3 font-bold">Protocolo</th>
+                <th class="text-left px-6 py-3 font-bold">Serviço</th>
+                <th class="text-left px-6 py-3 font-bold">Endereço da obra</th>
+                <th class="text-left px-6 py-3 font-bold">Enviado em</th>
+                <th class="text-right px-6 py-3 font-bold">Valor</th>
+                <th class="text-left px-6 py-3 font-bold">Situação</th>
+              </tr>
+            </thead>
+            <tbody id="cc-tabela" class="divide-y divide-[#efece3]"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="cc-detalhe" class="hidden cc-card mt-6 p-6">
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p class="text-[.7rem] uppercase tracking-[.14em] text-[#a3907a] font-bold" id="cc-det-proto">—</p>
+            <h3 class="text-xl font-semibold text-[#22201c] mt-1" id="cc-det-titulo">—</h3>
+            <p class="text-sm text-[#6f6759] mt-1" id="cc-det-info">—</p>
+          </div>
+          <span id="cc-det-status" class="cc-chip bg-[#eaf1ee] text-[#1f5d4c]">—</span>
+        </div>
+        <p class="text-sm text-[#4a4437] mt-4 leading-relaxed" id="cc-det-obs">—</p>
+        <div class="flex flex-wrap gap-3 mt-6">
+          <button onclick="cadastro_de_cliente_aprovar()" class="px-5 py-2.5 rounded-lg bg-[#1f5d4c] text-white text-sm font-semibold hover:bg-[#18493c]">Aprovar proposta</button>
+          <button onclick="mostrarTela('detalhe-do-servico')" class="px-5 py-2.5 rounded-lg border border-[#d8d3c6] text-sm font-semibold text-[#4a4437] hover:bg-[#f7f5ef]">Ver escopo do serviço</button>
+          <button onclick="mostrarTela('contato-e-localizacao')" class="px-5 py-2.5 rounded-lg border border-[#d8d3c6] text-sm font-semibold text-[#4a4437] hover:bg-[#f7f5ef]">Falar com o engenheiro</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var cc_interesses = [];
+    var cc_dados = {nome:'Renata Aguiar Belmonte', email:'renata@construtorabelmonte.com.br', cidade:'Belo Horizonte - MG'};
+    var cc_solic = [
+      {p:'ORC-2024-0417', s:'Reforma corporativa — 3º andar', e:'Av. Raja Gabaglia, 1875 · Luxemburgo, BH', d:'12/03/2024', v:'R$ 98.400', st:'Proposta enviada', k:'proposta', obs:'Proposta contempla demolição leve, novo layout para 42 postos de trabalho, forro acústico e climatização. Validade de 15 dias.'},
+      {p:'ORC-2024-0392', s:'Laudo estrutural de fachada', e:'Rua Sergipe, 402 · Funcionários, BH', d:'28/02/2024', v:'R$ 12.500', st:'Em andamento', k:'andamento', obs:'Vistoria técnica realizada em 05/03. Relatório fotográfico em redação, entrega prevista para 20/03.'},
+      {p:'ORC-2024-0355', s:'Projeto arquitetônico — galpão logístico', e:'Rod. Fernão Dias, km 12 · Contagem', d:'09/02/2024', v:'R$ 50.500', st:'Em andamento', k:'andamento', obs:'Estudo preliminar aprovado. Aguardando definição do pé-direito para seguir com o executivo.'},
+      {p:'ORC-2023-0288', s:'Regularização de obra residencial', e:'Rua da Bahia, 1140 · Centro, BH', d:'14/11/2023', v:'R$ 8.900', st:'Concluído', k:'concluido', obs:'Baixa de construção emitida pela PBH em 22/01/2024. Documentação disponível no acervo do cliente.'}
+    ];
+    var cc_filtro = 'todos';
+
+    function cadastro_de_cliente_aba(a){
+      var n=document.getElementById('cc-tab-novo'), l=document.getElementById('cc-tab-login');
+      n.className='cc-tab'+(a==='novo'?' cc-tab-on':''); l.className='cc-tab'+(a==='login'?' cc-tab-on':'');
+      document.getElementById('cc-form-novo').classList.toggle('hidden', a!=='novo');
+      document.getElementById('cc-form-login').classList.toggle('hidden', a!=='login');
+    }
+    function cadastro_de_cliente_interesse(el,t){
+      var i=cc_interesses.indexOf(t);
+      if(i>-1){cc_interesses.splice(i,1); el.className='px-3 py-1.5 rounded-full border border-[#d8d3c6] text-[.8rem] text-[#4a4437] hover:border-[#1f5d4c]';}
+      else{cc_interesses.push(t); el.className='px-3 py-1.5 rounded-full border border-[#1f5d4c] bg-[#eaf1ee] text-[.8rem] text-[#1f5d4c] font-semibold';}
+      cadastro_de_cliente_previa();
+    }
+    function cadastro_de_cliente_previa(){
+      var n=document.getElementById('cc-nome').value.trim();
+      document.getElementById('cc-p-nome').textContent = n||'Seu nome aparece aqui';
+      var ini = n? n.split(' ').filter(function(x){return x.length>2}).slice(0,2).map(function(x){return x[0].toUpperCase()}).join(''):'VP';
+      document.getElementById('cc-avatar').textContent = ini||'VP';
+      document.getElementById('cc-p-cidade').textContent = document.getElementById('cc-cidade').value;
+      document.getElementById('cc-p-email').textContent = document.getElementById('cc-email').value.trim()||'—';
+      document.getElementById('cc-p-tel').textContent = document.getElementById('cc-tel').value.trim()||'—';
+      document.getElementById('cc-p-int').textContent = cc_interesses.length? cc_interesses.join(', '):'—';
+      var s=document.getElementById('cc-senha').value;
+      document.getElementById('cc-p-senha').textContent = s? (s.length<8?'Fraca ('+s.length+' caracteres)':'Segura'):'—';
+      var t=document.getElementById('cc-termos').checked, e=document.getElementById('cc-p-termos');
+      e.textContent = t?'Aceito':'Pendente';
+      e.className = 'text-right font-semibold '+(t?'text-[#1f5d4c]':'text-[#a3402f]');
+    }
+    function cadastro_de_cliente_erro(m){
+      var e=document.getElementById('cc-erro');
+      if(!m){e.classList.add('hidden');return;}
+      e.textContent=m; e.classList.remove('hidden');
+    }
+    function cadastro_de_cliente_criar(){
+      var n=document.getElementById('cc-nome').value.trim(),
+          em=document.getElementById('cc-email').value.trim(),
+          tel=document.getElementById('cc-tel').value.trim(),
+          s1=document.getElementById('cc-senha').value, s2=document.getElementById('cc-senha2').value;
+      if(!n||!em||!tel) return cadastro_de_cliente_erro('Preencha nome, e-mail e telefone para continuar.');
+      if(em.indexOf('@')<1) return cadastro_de_cliente_erro('Informe um e-mail válido, ex.: nome@empresa.com.br');
+      if(s1.length<8) return cadastro_de_cliente_erro('A senha precisa ter ao menos 8 caracteres.');
+      if(s1!==s2) return cadastro_de_cliente_erro('As duas senhas digitadas não conferem.');
+      if(!document.getElementById('cc-termos').checked) return cadastro_de_cliente_erro('É necessário aceitar os termos de uso e a política de privacidade.');
+      cadastro_de_cliente_erro('');
+      cc_dados={nome:n,email:em,cidade:document.getElementById('cc-cidade').value};
+      if(cc_interesses.length && cc_solic[0].p!=='ORC-2024-0431'){
+        cc_solic.unshift({p:'ORC-2024-0431', s:cc_interesses[0], e:'Endereço a confirmar · '+cc_dados.cidade, d:'Hoje', v:'A orçar', st:'Em andamento', k:'andamento', obs:'Solicitação recebida pelo site. Nosso time entra em contato pelo telefone '+tel+' em até 24h úteis para agendar a visita técnica.'});
+      }
+      cadastro_de_cliente_entrar();
+    }
+    function cadastro_de_cliente_login(){
+      var em=document.getElementById('cc-login-email').value.trim();
+      if(em.indexOf('@')<1) return;
+      cc_dados={nome:'Renata Aguiar Belmonte', email:em, cidade:'Belo Horizonte - MG'};
+      cadastro_de_cliente_entrar();
+    }
+    function cadastro_de_cliente_entrar(){
+      document.getElementById('cc-area-form').classList.add('hidden');
+      document.getElementById('cc-area-cliente').classList.remove('hidden');
+      document.getElementById('cc-boas-vindas').textContent = cc_dados.nome.split(' ')[0];
+      document.getElementById('cc-boas-email').textContent = cc_dados.email;
+      document.getElementById('cc-boas-cidade').textContent = cc_dados.cidade;
+      cadastro_de_cliente_render();
+      window.scrollTo(0,0);
+    }
+    function cadastro_de_cliente_sair(){
+      document.getElementById('cc-area-cliente').classList.add('hidden');
+      document.getElementById('cc-detalhe').classList.add('hidden');
+      document.getElementById('cc-area-form').classList.remove('hidden');
+      window.scrollTo(0,0);
+    }
+    function cadastro_de_cliente_filtrar(f,btn){
+      cc_filtro=f;
+      document.querySelectorAll('.cc-filtro').forEach(function(b){b.className='cc-filtro px-3 py-1.5 rounded-md text-xs font-semibold border border-[#d8d3c6] text-[#5d5648]';});
+      btn.className='cc-filtro px-3 py-1.5 rounded-md text-xs font-semibold bg-[#1f5d4c] text-white';
+      cadastro_de_cliente_render();
+    }
+    function cadastro_de_cliente_cor(k){
+      if(k==='proposta') return 'bg-[#f5eee3] text-[#8f6f3f]';
+      if(k==='concluido') return 'bg-[#eceae3] text-[#5d5648]';
+      return 'bg-[#eaf1ee] text-[#1f5d4c]';
+    }
+    function cadastro_de_cliente_render(){
+      var tb=document.getElementById('cc-tabela'), html='';
+      cc_solic.forEach(function(o,i){
+        if(cc_filtro!=='todos' && o.k!==cc_filtro) return;
+        html+='<tr class="hover:bg-[#faf8f2] cursor-pointer" onclick="cadastro_de_cliente_abrir('+i+')">'+
+          '<td class="px-6 py-4 font-semibold text-[#1f5d4c]">'+o.p+'</td>'+
+          '<td class="px-6 py-4 text-[#22201c]">'+o.s+'</td>'+
+          '<td class="px-6 py-4 text-[#6f6759]">'+o.e+'</td>'+
+          '<td class="px-6 py-4 text-[#6f6759]">'+o.d+'</td>'+
+          '<td class="px-6 py-4 text-right font-semibold text-[#22201c]">'+o.v+'</td>'+
+          '<td class="px-6 py-4"><span class="cc-chip '+cadastro_de_cliente_cor(o.k)+'">'+o.st+'</span></td></tr>';
+      });
+      if(!html) html='<tr><td colspan="6" class="px-6 py-8 text-center text-[#8a8172]">Nenhuma solicitação neste filtro.</td></tr>';
+      tb.innerHTML=html;
+    }
+    var cc_sel=0;
+    function cadastro_de_cliente_abrir(i){
+      cc_sel=i; var o=cc_solic[i];
+      document.getElementById('cc-det-proto').textContent='Protocolo '+o.p;
+      document.getElementById('cc-det-titulo').textContent=o.s;
+      document.getElementById('cc-det-info').textContent=o.e+' · enviado em '+o.d+' · '+o.v;
+      var st=document.getElementById('cc-det-status');
+      st.textContent=o.st; st.className='cc-chip '+cadastro_de_cliente_cor(o.k);
+      document.getElementById('cc-det-obs').textContent=o.obs;
+      var d=document.getElementById('cc-detalhe');
+      d.classList.remove('hidden');
+      d.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+    function cadastro_de_cliente_aprovar(){
+      var o=cc_solic[cc_sel];
+      o.st='Aprovada pelo cliente'; o.k='concluido';
+      o.obs='Proposta aprovada agora por '+cc_dados.nome+'. O contrato digital foi enviado para '+cc_dados.email+' e a equipe inicia a mobilização em até 5 dias úteis.';
+      cadastro_de_cliente_render(); cadastro_de_cliente_abrir(cc_sel);
+    }
+    cadastro_de_cliente_render();
+  </script>
+</section>
+
     <!-- TELAS -->
 </main>
 
