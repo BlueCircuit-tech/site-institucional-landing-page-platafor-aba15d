@@ -466,6 +466,235 @@
   </script>
 </section>
 
+    <section data-tela="catalogo-de-servicos" class="hidden">
+  <style>
+    .cds-chip{display:inline-flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.2rem .5rem;border-radius:.25rem}
+    .cds-cat{display:flex;align-items:center;justify-content:space-between;width:100%;padding:.55rem .7rem;border-radius:.4rem;font-size:.875rem;color:#334155;text-align:left;transition:.15s}
+    .cds-cat:hover{background:#e8f1f2;color:#0d3b45}
+    .cds-cat.ativo{background:#0d3b45;color:#fff}
+    .cds-cat.ativo span{background:rgba(255,255,255,.18);color:#fff}
+    .cds-card{background:#fff;border:1px solid #e2e8f0;border-radius:.6rem;overflow:hidden;cursor:pointer;transition:.18s}
+    .cds-card:hover{border-color:#0d3b45;box-shadow:0 12px 28px -18px rgba(13,59,69,.65);transform:translateY(-3px)}
+  </style>
+
+  <div class="bg-[#0d3b45] text-white">
+    <div class="max-w-[1240px] mx-auto px-8 py-9 flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <p class="text-[#f0b429] text-xs font-bold tracking-[.18em] uppercase">Soluções prediais</p>
+        <h1 class="text-3xl font-bold mt-1">Catálogo de Serviços</h1>
+        <p class="text-slate-300 text-sm mt-2 max-w-xl">Engenharia, instalação e manutenção para condomínios, indústrias e escritórios na Grande São Paulo. Solicite proposta em até 24h úteis.</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <button onclick="mostrarTela('contato-e-localizacao')" class="px-4 py-2.5 rounded-md border border-white/30 text-sm hover:bg-white/10">Onde atendemos</button>
+        <button onclick="mostrarTela('cadastro-de-cliente')" class="px-4 py-2.5 rounded-md bg-[#f0b429] text-[#0d3b45] text-sm font-semibold hover:bg-[#ffc53d]">Pedir orçamento</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-[1240px] mx-auto px-8 py-8">
+    <div class="grid gap-8" style="grid-template-columns:minmax(220px,260px) minmax(0,1fr)">
+      <aside class="space-y-6">
+        <div class="bg-white border border-slate-200 rounded-lg p-4">
+          <h3 class="text-xs font-bold tracking-widest uppercase text-slate-500 mb-3">Categorias</h3>
+          <div id="cds-categorias" class="space-y-1"></div>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-lg p-4">
+          <h3 class="text-xs font-bold tracking-widest uppercase text-slate-500 mb-3">Tipo de contrato</h3>
+          <label class="flex items-center gap-2 text-sm text-slate-700 py-1 cursor-pointer">
+            <input type="checkbox" value="Projeto" onchange="catalogo_de_servicos_toggleTipo(this)" class="accent-[#0d3b45] w-4 h-4"> Projeto pontual
+          </label>
+          <label class="flex items-center gap-2 text-sm text-slate-700 py-1 cursor-pointer">
+            <input type="checkbox" value="Mensal" onchange="catalogo_de_servicos_toggleTipo(this)" class="accent-[#0d3b45] w-4 h-4"> Contrato mensal
+          </label>
+          <label class="flex items-center gap-2 text-sm text-slate-700 py-1 cursor-pointer">
+            <input type="checkbox" value="Urgente" onchange="catalogo_de_servicos_toggleTipo(this)" class="accent-[#0d3b45] w-4 h-4"> Atendimento 24h
+          </label>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-lg p-4">
+          <h3 class="text-xs font-bold tracking-widest uppercase text-slate-500 mb-3">Investimento até</h3>
+          <input id="cds-faixa" type="range" min="1500" max="40000" step="500" value="40000" oninput="catalogo_de_servicos_faixa(this.value)" class="w-full accent-[#f0b429]">
+          <p class="text-sm text-slate-600 mt-2">Até <span id="cds-faixa-valor" class="font-semibold text-[#0d3b45]">R$ 40.000</span></p>
+        </div>
+
+        <div class="bg-[#0d3b45] rounded-lg p-4 text-white">
+          <h3 class="text-sm font-bold">Sua seleção</h3>
+          <ul id="cds-selecao" class="mt-3 space-y-2 text-sm text-slate-200"><li class="text-slate-400">Nenhum serviço selecionado.</li></ul>
+          <button onclick="mostrarTela('cadastro-de-cliente')" class="mt-4 w-full py-2 rounded-md bg-[#f0b429] text-[#0d3b45] text-sm font-semibold hover:bg-[#ffc53d]">Solicitar proposta</button>
+        </div>
+      </aside>
+
+      <div>
+        <div class="bg-white border border-slate-200 rounded-lg p-4 flex flex-wrap items-center gap-3">
+          <div class="flex-1 min-w-[240px] relative">
+            <svg class="w-4 h-4 absolute left-3 top-3 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <input id="cds-busca" oninput="catalogo_de_servicos_render()" type="text" placeholder="Buscar por serviço, norma ou equipamento (ex.: AVCB, VRF, solar)" class="w-full pl-9 pr-3 py-2.5 border border-slate-300 rounded-md text-sm focus:outline-none focus:border-[#0d3b45]">
+          </div>
+          <select id="cds-ordem" onchange="catalogo_de_servicos_render()" class="px-3 py-2.5 border border-slate-300 rounded-md text-sm text-slate-700 bg-white">
+            <option value="relevancia">Mais procurados</option>
+            <option value="menor">Menor investimento</option>
+            <option value="maior">Maior investimento</option>
+            <option value="az">Ordem alfabética</option>
+          </select>
+          <button onclick="catalogo_de_servicos_limpar()" class="px-3 py-2.5 text-sm text-[#0d3b45] font-semibold hover:underline">Limpar filtros</button>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 mt-5 mb-3">
+          <p class="text-sm text-slate-600"><span id="cds-total" class="font-semibold text-[#0d3b45]">6</span> serviços disponíveis</p>
+          <div id="cds-tags" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <div id="cds-grade" class="grid gap-5" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))"></div>
+
+        <div id="cds-vazio" class="hidden text-center py-14 bg-white border border-dashed border-slate-300 rounded-lg">
+          <p class="text-slate-600 text-sm">Nenhum serviço encontrado com esses filtros.</p>
+          <button onclick="catalogo_de_servicos_limpar()" class="mt-3 px-4 py-2 rounded-md bg-[#0d3b45] text-white text-sm font-semibold">Ver catálogo completo</button>
+        </div>
+
+        <div class="mt-8 bg-white border-l-4 border-[#f0b429] border-y border-r border-slate-200 rounded-lg p-6 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h3 class="font-bold text-[#0d3b45]">Não encontrou o que precisa?</h3>
+            <p class="text-sm text-slate-600 mt-1">Nossa equipe monta um escopo sob medida após visita técnica gratuita.</p>
+          </div>
+          <div class="flex gap-3">
+            <button onclick="mostrarTela('contato-e-localizacao')" class="px-4 py-2.5 rounded-md border border-slate-300 text-sm text-slate-700 hover:border-[#0d3b45]">Falar com engenheiro</button>
+            <button onclick="mostrarTela('home-institucional')" class="px-4 py-2.5 rounded-md bg-[#0d3b45] text-white text-sm font-semibold">Conhecer a empresa</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var catalogo_de_servicos_dados = [
+      {id:1,nome:"Instalação Elétrica Predial NBR 5410",cat:"Elétrica",tipo:["Projeto"],preco:4800,prazo:"5 a 8 dias úteis",resumo:"Quadros, circuitos, aterramento e laudo técnico assinado por engenheiro eletricista.",selo:"Mais procurado",cor:"#f0b429",emoji:"⚡",obras:132},
+      {id:2,nome:"Manutenção de Climatização VRF",cat:"Climatização",tipo:["Mensal","Urgente"],preco:1250,prazo:"Visitas quinzenais",resumo:"PMOC completo, limpeza de evaporadoras e atendimento emergencial em até 4h.",selo:"Contrato mensal",cor:"#0d7f8a",emoji:"❄️",obras:87},
+      {id:3,nome:"Projeto e Instalação Hidrossanitária",cat:"Hidráulica",tipo:["Projeto"],preco:6400,prazo:"10 a 15 dias úteis",resumo:"Prumadas, barriletes, pressurização e teste de estanqueidade com relatório.",selo:"",cor:"#0d7f8a",emoji:"🚿",obras:64},
+      {id:4,nome:"Sistema de Combate a Incêndio + AVCB",cat:"Segurança",tipo:["Projeto","Urgente"],preco:12900,prazo:"20 a 30 dias úteis",resumo:"Hidrantes, sprinklers, alarme e acompanhamento da vistoria do Corpo de Bombeiros.",selo:"Regularização",cor:"#c2410c",emoji:"🧯",obras:41},
+      {id:5,nome:"Usina Solar Fotovoltaica 8 kWp",cat:"Energia Solar",tipo:["Projeto"],preco:32500,prazo:"25 dias úteis",resumo:"Módulos 550W, inversor com monitoramento e homologação junto à Enel.",selo:"Economia de 92%",cor:"#15803d",emoji:"☀️",obras:58},
+      {id:6,nome:"Automação, CFTV e Controle de Acesso",cat:"Automação",tipo:["Projeto","Mensal"],preco:9750,prazo:"7 a 12 dias úteis",resumo:"Câmeras IP 4MP, gravação em nuvem 30 dias e leitor facial na portaria.",selo:"",cor:"#0d3b45",emoji:"🎥",obras:73}
+    ];
+    var catalogo_de_servicos_cat = "Todas";
+    var catalogo_de_servicos_tipos = [];
+    var catalogo_de_servicos_max = 40000;
+    var catalogo_de_servicos_sel = [];
+
+    function catalogo_de_servicos_moeda(v){return "R$ " + v.toLocaleString("pt-BR");}
+
+    function catalogo_de_servicos_cats(){
+      var d = catalogo_de_servicos_dados, cats = ["Todas"];
+      d.forEach(function(s){ if(cats.indexOf(s.cat)<0) cats.push(s.cat); });
+      document.getElementById("cds-categorias").innerHTML = cats.map(function(c){
+        var n = c==="Todas" ? d.length : d.filter(function(s){return s.cat===c;}).length;
+        return '<button onclick="catalogo_de_servicos_filtrarCat(\''+c+'\')" class="cds-cat'+(catalogo_de_servicos_cat===c?" ativo":"")+'">'+c+'<span class="bg-slate-100 text-slate-500 text-xs px-1.5 rounded">'+n+'</span></button>';
+      }).join("");
+    }
+
+    function catalogo_de_servicos_filtrarCat(c){ catalogo_de_servicos_cat = c; catalogo_de_servicos_cats(); catalogo_de_servicos_render(); }
+
+    function catalogo_de_servicos_toggleTipo(el){
+      if(el.checked) catalogo_de_servicos_tipos.push(el.value);
+      else catalogo_de_servicos_tipos = catalogo_de_servicos_tipos.filter(function(t){return t!==el.value;});
+      catalogo_de_servicos_render();
+    }
+
+    function catalogo_de_servicos_faixa(v){
+      catalogo_de_servicos_max = parseInt(v,10);
+      document.getElementById("cds-faixa-valor").textContent = catalogo_de_servicos_moeda(catalogo_de_servicos_max);
+      catalogo_de_servicos_render();
+    }
+
+    function catalogo_de_servicos_limpar(){
+      catalogo_de_servicos_cat="Todas"; catalogo_de_servicos_tipos=[]; catalogo_de_servicos_max=40000;
+      document.getElementById("cds-busca").value="";
+      document.getElementById("cds-ordem").value="relevancia";
+      document.getElementById("cds-faixa").value=40000;
+      document.getElementById("cds-faixa-valor").textContent="R$ 40.000";
+      document.querySelectorAll('#cds-tags').forEach(function(){});
+      Array.prototype.forEach.call(document.querySelectorAll('input[type=checkbox][onchange^="catalogo_de_servicos_toggleTipo"]'),function(c){c.checked=false;});
+      catalogo_de_servicos_cats(); catalogo_de_servicos_render();
+    }
+
+    function catalogo_de_servicos_abrir(id){
+      var s = catalogo_de_servicos_dados.filter(function(x){return x.id===id;})[0];
+      window.servicoSelecionado = s;
+      mostrarTela('detalhe-do-servico');
+    }
+
+    function catalogo_de_servicos_addSelecao(ev,id){
+      ev.stopPropagation();
+      var s = catalogo_de_servicos_dados.filter(function(x){return x.id===id;})[0];
+      if(catalogo_de_servicos_sel.indexOf(s)<0) catalogo_de_servicos_sel.push(s);
+      var ul = document.getElementById("cds-selecao");
+      ul.innerHTML = catalogo_de_servicos_sel.map(function(x){
+        return '<li class="flex items-start justify-between gap-2 border-b border-white/10 pb-1.5"><span>'+x.nome+'</span><button onclick="catalogo_de_servicos_remSelecao('+x.id+')" class="text-[#f0b429] text-xs font-bold">✕</button></li>';
+      }).join("");
+      catalogo_de_servicos_render();
+    }
+
+    function catalogo_de_servicos_remSelecao(id){
+      catalogo_de_servicos_sel = catalogo_de_servicos_sel.filter(function(x){return x.id!==id;});
+      var ul = document.getElementById("cds-selecao");
+      ul.innerHTML = catalogo_de_servicos_sel.length ? catalogo_de_servicos_sel.map(function(x){
+        return '<li class="flex items-start justify-between gap-2 border-b border-white/10 pb-1.5"><span>'+x.nome+'</span><button onclick="catalogo_de_servicos_remSelecao('+x.id+')" class="text-[#f0b429] text-xs font-bold">✕</button></li>';
+      }).join("") : '<li class="text-slate-400">Nenhum serviço selecionado.</li>';
+      catalogo_de_servicos_render();
+    }
+
+    function catalogo_de_servicos_render(){
+      var busca = (document.getElementById("cds-busca").value||"").toLowerCase();
+      var ordem = document.getElementById("cds-ordem").value;
+      var lista = catalogo_de_servicos_dados.filter(function(s){
+        var okC = catalogo_de_servicos_cat==="Todas" || s.cat===catalogo_de_servicos_cat;
+        var okB = !busca || (s.nome+" "+s.resumo+" "+s.cat).toLowerCase().indexOf(busca)>=0;
+        var okT = !catalogo_de_servicos_tipos.length || catalogo_de_servicos_tipos.some(function(t){return s.tipo.indexOf(t)>=0;});
+        return okC && okB && okT && s.preco<=catalogo_de_servicos_max;
+      });
+      if(ordem==="menor") lista.sort(function(a,b){return a.preco-b.preco;});
+      if(ordem==="maior") lista.sort(function(a,b){return b.preco-a.preco;});
+      if(ordem==="az") lista.sort(function(a,b){return a.nome.localeCompare(b.nome);});
+      if(ordem==="relevancia") lista.sort(function(a,b){return b.obras-a.obras;});
+
+      document.getElementById("cds-total").textContent = lista.length;
+      var tags = [];
+      if(catalogo_de_servicos_cat!=="Todas") tags.push(catalogo_de_servicos_cat);
+      catalogo_de_servicos_tipos.forEach(function(t){tags.push(t);});
+      if(catalogo_de_servicos_max<40000) tags.push("até "+catalogo_de_servicos_moeda(catalogo_de_servicos_max));
+      document.getElementById("cds-tags").innerHTML = tags.map(function(t){
+        return '<span class="cds-chip bg-[#e8f1f2] text-[#0d3b45]">'+t+'</span>';
+      }).join("");
+
+      document.getElementById("cds-vazio").classList.toggle("hidden", lista.length>0);
+      document.getElementById("cds-grade").innerHTML = lista.map(function(s){
+        var sel = catalogo_de_servicos_sel.indexOf(s)>=0;
+        return '<article class="cds-card" onclick="catalogo_de_servicos_abrir('+s.id+')">'+
+          '<div class="h-28 flex items-center justify-between px-5" style="background:linear-gradient(120deg,'+s.cor+'22,#e8f1f2)">'+
+            '<span class="text-4xl">'+s.emoji+'</span>'+
+            (s.selo?'<span class="cds-chip" style="background:'+s.cor+';color:#fff">'+s.selo+'</span>':'')+
+          '</div>'+
+          '<div class="p-5">'+
+            '<p class="text-[11px] font-bold uppercase tracking-widest" style="color:'+s.cor+'">'+s.cat+'</p>'+
+            '<h3 class="font-bold text-[#0d3b45] mt-1 leading-snug">'+s.nome+'</h3>'+
+            '<p class="text-sm text-slate-600 mt-2 leading-relaxed">'+s.resumo+'</p>'+
+            '<div class="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">'+
+              '<div><p class="text-[11px] text-slate-500">A partir de</p><p class="font-bold text-[#0d3b45]">'+catalogo_de_servicos_moeda(s.preco)+(s.tipo.indexOf("Mensal")>=0?'<span class="text-xs font-normal text-slate-500">/mês</span>':'')+'</p></div>'+
+              '<p class="text-xs text-slate-500 text-right">'+s.prazo+'<br><span class="text-slate-400">'+s.obras+' obras entregues</span></p>'+
+            '</div>'+
+            '<div class="flex gap-2 mt-4">'+
+              '<button onclick="event.stopPropagation();catalogo_de_servicos_abrir('+s.id+')" class="flex-1 py-2 rounded-md bg-[#0d3b45] text-white text-sm font-semibold hover:bg-[#12525f]">Ver detalhes</button>'+
+              '<button onclick="catalogo_de_servicos_addSelecao(event,'+s.id+')" class="px-3 py-2 rounded-md border text-sm font-semibold '+(sel?'border-[#15803d] text-[#15803d]':'border-slate-300 text-slate-600 hover:border-[#f0b429]')+'">'+(sel?'✓ Na lista':'+ Orçar')+'</button>'+
+            '</div>'+
+          '</div>'+
+        '</article>';
+      }).join("");
+    }
+
+    catalogo_de_servicos_cats();
+    catalogo_de_servicos_render();
+  </script>
+</section>
+
     <!-- TELAS -->
 </main>
 
