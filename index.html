@@ -134,6 +134,338 @@
 
 <!-- ===== CONTEÚDO ===== -->
 <main class="min-h-screen px-5 py-7 lg:pl-[17.5rem] lg:pr-8">
+    <section data-tela="home-institucional" class="hidden">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Manrope:wght@400;500;600&display=swap');
+    [data-tela="home-institucional"]{font-family:'Manrope',sans-serif;color:#12313f}
+    [data-tela="home-institucional"] h1,[data-tela="home-institucional"] h2,[data-tela="home-institucional"] h3{font-family:'Sora',sans-serif;letter-spacing:-.02em}
+    .hi-card{background:#fff;border:1px solid #e6ded1;border-radius:18px;box-shadow:0 1px 0 rgba(15,46,61,.04)}
+    .hi-btn{background:#f2a63b;color:#12313f;font-weight:600;border-radius:12px;transition:.15s}
+    .hi-btn:hover{background:#e0912a}
+    .hi-ghost{border:1.5px solid #12313f33;border-radius:12px;font-weight:600}
+    .hi-ghost:hover{background:#12313f0d}
+    .hi-serv{cursor:pointer;transition:.15s}
+    .hi-serv:hover{transform:translateY(-3px);border-color:#f2a63b}
+  </style>
+
+  <div class="bg-[#f7f3ec]">
+    <div class="px-8 py-12 max-w-[1200px] mx-auto">
+      <div class="grid gap-10 items-center" style="grid-template-columns:repeat(auto-fit,minmax(340px,1fr))">
+        <div>
+          <span class="inline-block text-xs font-semibold tracking-wide uppercase bg-[#12313f] text-[#f2a63b] px-3 py-1 rounded-full">Energia solar em Ribeirão Preto e região</span>
+          <h1 class="text-4xl xl:text-5xl font-bold mt-5 leading-tight">Sua conta de luz reduzida em até <span class="text-[#c9821c]">92%</span> com energia do sol.</h1>
+          <p class="mt-5 text-[17px] text-[#44606c] max-w-xl">A Aurora Solar projeta, instala e monitora usinas fotovoltaicas para residências, comércios e agronegócio. Mais de 1.400 sistemas entregues desde 2014, com 25 anos de garantia de geração.</p>
+          <div class="flex flex-wrap gap-3 mt-7">
+            <button onclick="mostrarTela('cadastro-de-cliente')" class="hi-btn px-6 py-3.5">Solicitar orçamento gratuito</button>
+            <button onclick="mostrarTela('catalogo-de-servicos')" class="hi-ghost px-6 py-3.5">Ver nossos serviços</button>
+            <button onclick="home_institucional_abrirChat()" class="px-6 py-3.5 rounded-xl font-semibold text-[#0d6b52] bg-[#dff3ea] hover:bg-[#cfeade]">💬 Fale conosco agora</button>
+          </div>
+          <div class="flex flex-wrap gap-x-8 gap-y-2 mt-8 text-sm text-[#44606c]">
+            <span>✔ Projeto e homologação na CPFL inclusos</span>
+            <span>✔ Financiamento em até 84x</span>
+          </div>
+        </div>
+
+        <div class="hi-card p-6">
+          <h3 class="text-lg font-semibold">Simule sua economia</h3>
+          <p class="text-sm text-[#6b8391] mt-1">Estimativa imediata, sem compromisso.</p>
+          <label class="block text-xs font-semibold mt-5 mb-1.5 uppercase tracking-wide text-[#6b8391]">Valor médio da conta de luz</label>
+          <select id="hi-conta" class="w-full border border-[#dcd2c2] rounded-xl px-3 py-3 bg-[#fdfbf7]">
+            <option value="280">Até R$ 300 / mês</option>
+            <option value="520" selected>R$ 300 a R$ 700 / mês</option>
+            <option value="1100">R$ 700 a R$ 1.500 / mês</option>
+            <option value="2600">Acima de R$ 1.500 / mês</option>
+          </select>
+          <label class="block text-xs font-semibold mt-4 mb-1.5 uppercase tracking-wide text-[#6b8391]">Tipo de imóvel</label>
+          <div class="grid grid-cols-3 gap-2" id="hi-tipos">
+            <button onclick="home_institucional_tipo(this,'Residência')" class="hi-ghost py-2.5 text-sm bg-[#12313f] text-white border-transparent">Residência</button>
+            <button onclick="home_institucional_tipo(this,'Comércio')" class="hi-ghost py-2.5 text-sm">Comércio</button>
+            <button onclick="home_institucional_tipo(this,'Rural')" class="hi-ghost py-2.5 text-sm">Rural</button>
+          </div>
+          <label class="block text-xs font-semibold mt-4 mb-1.5 uppercase tracking-wide text-[#6b8391]">Cidade</label>
+          <select id="hi-cidade" class="w-full border border-[#dcd2c2] rounded-xl px-3 py-3 bg-[#fdfbf7]">
+            <option>Ribeirão Preto - SP</option>
+            <option>Sertãozinho - SP</option>
+            <option>Franca - SP</option>
+            <option>Barretos - SP</option>
+          </select>
+          <button onclick="home_institucional_simular()" class="hi-btn w-full py-3.5 mt-5">Calcular economia</button>
+          <div id="hi-resultado" class="hidden mt-5 rounded-xl bg-[#12313f] text-white p-5">
+            <p class="text-xs uppercase tracking-wide text-[#f2a63b] font-semibold">Estimativa para <span id="hi-res-tipo">Residência</span> em <span id="hi-res-cidade"></span></p>
+            <p class="text-3xl font-bold mt-2" id="hi-res-eco"></p>
+            <p class="text-sm text-white/70">de economia por mês · <span id="hi-res-kwp"></span> kWp · retorno em <span id="hi-res-payback"></span></p>
+            <button onclick="mostrarTela('cadastro-de-cliente')" class="hi-btn w-full py-3 mt-4">Quero a proposta detalhada</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-[#12313f] text-white">
+    <div class="max-w-[1200px] mx-auto px-8 py-8 grid gap-6 text-center" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+      <div><p class="text-3xl font-bold text-[#f2a63b]">1.412</p><p class="text-sm text-white/70">usinas instaladas</p></div>
+      <div><p class="text-3xl font-bold text-[#f2a63b]">18,6 MWp</p><p class="text-sm text-white/70">de potência entregue</p></div>
+      <div><p class="text-3xl font-bold text-[#f2a63b]">11 anos</p><p class="text-sm text-white/70">de mercado no interior de SP</p></div>
+      <div><p class="text-3xl font-bold text-[#f2a63b]">4,9/5</p><p class="text-sm text-white/70">avaliação dos clientes</p></div>
+    </div>
+  </div>
+
+  <div class="max-w-[1200px] mx-auto px-8 py-14">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h2 class="text-3xl font-bold">O que a Aurora Solar faz</h2>
+        <p class="text-[#6b8391] mt-2">Do estudo de viabilidade à manutenção preventiva da usina.</p>
+      </div>
+      <button onclick="mostrarTela('catalogo-de-servicos')" class="hi-ghost px-5 py-3">Catálogo completo →</button>
+    </div>
+    <div class="grid gap-5 mt-8" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr))">
+      <div onclick="mostrarTela('detalhe-do-servico')" class="hi-card hi-serv p-6">
+        <div class="w-11 h-11 rounded-xl bg-[#fdf0dc] grid place-items-center text-xl">🏠</div>
+        <h3 class="font-semibold text-lg mt-4">Solar residencial</h3>
+        <p class="text-sm text-[#6b8391] mt-2">Sistemas de 3 a 12 kWp em telhado cerâmico ou metálico, com app de monitoramento.</p>
+        <p class="text-sm font-semibold text-[#c9821c] mt-4">a partir de R$ 14.900</p>
+      </div>
+      <div onclick="mostrarTela('detalhe-do-servico')" class="hi-card hi-serv p-6">
+        <div class="w-11 h-11 rounded-xl bg-[#fdf0dc] grid place-items-center text-xl">🏢</div>
+        <h3 class="font-semibold text-lg mt-4">Comercial e indústria</h3>
+        <p class="text-sm text-[#6b8391] mt-2">Projetos de 20 a 500 kWp com análise de demanda contratada e enquadramento tarifário.</p>
+        <p class="text-sm font-semibold text-[#c9821c] mt-4">orçamento sob medida</p>
+      </div>
+      <div onclick="mostrarTela('detalhe-do-servico')" class="hi-card hi-serv p-6">
+        <div class="w-11 h-11 rounded-xl bg-[#fdf0dc] grid place-items-center text-xl">🌾</div>
+        <h3 class="font-semibold text-lg mt-4">Agronegócio</h3>
+        <p class="text-sm text-[#6b8391] mt-2">Usinas de solo para irrigação e agroindústria, com linha de crédito do Pronampe e BNDES.</p>
+        <p class="text-sm font-semibold text-[#c9821c] mt-4">a partir de R$ 98.000</p>
+      </div>
+      <div onclick="mostrarTela('detalhe-do-servico')" class="hi-card hi-serv p-6">
+        <div class="w-11 h-11 rounded-xl bg-[#fdf0dc] grid place-items-center text-xl">🔧</div>
+        <h3 class="font-semibold text-lg mt-4">Manutenção e limpeza</h3>
+        <p class="text-sm text-[#6b8391] mt-2">Plano anual com 2 visitas técnicas, laudo termográfico e limpeza dos módulos.</p>
+        <p class="text-sm font-semibold text-[#c9821c] mt-4">R$ 390 / visita</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-[#f7f3ec] border-y border-[#e6ded1]">
+    <div class="max-w-[1200px] mx-auto px-8 py-14">
+      <h2 class="text-3xl font-bold">Quem já gera a própria energia</h2>
+      <p class="text-[#6b8391] mt-2">Clique em um depoimento para ler o relato completo.</p>
+      <div class="grid gap-5 mt-8" style="grid-template-columns:repeat(auto-fit,minmax(290px,1fr))" id="hi-depos">
+        <div onclick="home_institucional_depo(this)" class="hi-card p-6 cursor-pointer hover:border-[#f2a63b]">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-full bg-[#12313f] text-[#f2a63b] grid place-items-center font-semibold">MC</div>
+            <div><p class="font-semibold">Marcela Camargo</p><p class="text-xs text-[#6b8391]">Residência · Jardim Botânico, Ribeirão Preto</p></div>
+          </div>
+          <p class="text-[#f2a63b] mt-3 text-sm">★★★★★</p>
+          <p class="text-sm text-[#44606c] mt-2">"A conta caiu de R$ 680 para R$ 61 no primeiro mês."</p>
+          <p class="text-sm text-[#44606c] mt-2 hidden" data-full>Instalaram 14 módulos em dois dias, sem quebrar nenhuma telha. A homologação na CPFL saiu em 19 dias e o time avisou de cada etapa por WhatsApp. Já indiquei para três vizinhos da rua.</p>
+          <span class="text-xs font-semibold text-[#c9821c] mt-3 inline-block" data-tog>Ler mais +</span>
+        </div>
+        <div onclick="home_institucional_depo(this)" class="hi-card p-6 cursor-pointer hover:border-[#f2a63b]">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-full bg-[#12313f] text-[#f2a63b] grid place-items-center font-semibold">PA</div>
+            <div><p class="font-semibold">Padaria Pão de Minas</p><p class="text-xs text-[#6b8391]">Comércio · Sertãozinho</p></div>
+          </div>
+          <p class="text-[#f2a63b] mt-3 text-sm">★★★★★</p>
+          <p class="text-sm text-[#44606c] mt-2">"48 kWp instalados sem parar a produção um único dia."</p>
+          <p class="text-sm text-[#44606c] mt-2 hidden" data-full>Com quatro fornos elétricos e câmaras frias, a energia era nosso segundo maior custo. Hoje economizamos R$ 4.300 por mês e o investimento se paga em pouco mais de três anos.</p>
+          <span class="text-xs font-semibold text-[#c9821c] mt-3 inline-block" data-tog>Ler mais +</span>
+        </div>
+        <div onclick="home_institucional_depo(this)" class="hi-card p-6 cursor-pointer hover:border-[#f2a63b]">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-full bg-[#12313f] text-[#f2a63b] grid place-items-center font-semibold">JR</div>
+            <div><p class="font-semibold">Joaquim Rezende</p><p class="text-xs text-[#6b8391]">Sítio Boa Vista · Cravinhos</p></div>
+          </div>
+          <p class="text-[#f2a63b] mt-3 text-sm">★★★★★</p>
+          <p class="text-sm text-[#44606c] mt-2">"A irrigação do cafezal roda no sol desde 2022."</p>
+          <p class="text-sm text-[#44606c] mt-2 hidden" data-full>Fizeram o projeto de solo com 96 módulos e cuidaram de todo o financiamento no banco. A equipe volta duas vezes por ano para limpeza e me manda o laudo de geração por e-mail.</p>
+          <span class="text-xs font-semibold text-[#c9821c] mt-3 inline-block" data-tog>Ler mais +</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-[1200px] mx-auto px-8 py-14 grid gap-8 items-center" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
+    <div>
+      <h2 class="text-3xl font-bold">Venha tomar um café na nossa sede</h2>
+      <p class="text-[#6b8391] mt-3">Av. Presidente Vargas, 2.180 — Jardim Santa Ângela, Ribeirão Preto/SP. Showroom com módulos, inversores e estruturas para você ver de perto.</p>
+      <ul class="mt-5 space-y-2 text-sm text-[#44606c]">
+        <li>🕗 Segunda a sexta, 8h às 18h · sábado, 8h às 12h</li>
+        <li>📞 (16) 3325-4180</li>
+        <li>✉️ contato@aurorasolar.com.br</li>
+      </ul>
+      <div class="flex flex-wrap gap-3 mt-6">
+        <button onclick="mostrarTela('contato-e-localizacao')" class="hi-btn px-6 py-3.5">Ver mapa e horários</button>
+        <button onclick="mostrarTela('cadastro-de-cliente')" class="hi-ghost px-6 py-3.5">Criar minha conta</button>
+      </div>
+    </div>
+    <div onclick="mostrarTela('contato-e-localizacao')" class="hi-card overflow-hidden cursor-pointer hover:border-[#f2a63b]">
+      <div class="h-64 relative" style="background:
+        repeating-linear-gradient(90deg,#e8e2d6 0 78px,#dcd4c4 78px 82px),
+        repeating-linear-gradient(0deg,#e8e2d600 0 58px,#dcd4c4 58px 62px)">
+        <div class="absolute inset-0" style="background:linear-gradient(115deg,#cfe3d8 0 18%,transparent 18%)"></div>
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full text-3xl">📍</div>
+        <span class="absolute left-1/2 top-1/2 -translate-x-1/2 mt-1 bg-[#12313f] text-white text-xs px-2 py-1 rounded">Aurora Solar · Av. Pres. Vargas</span>
+      </div>
+      <div class="p-4 flex items-center justify-between text-sm">
+        <span class="text-[#6b8391]">Atendemos 42 cidades num raio de 180 km</span>
+        <span class="font-semibold text-[#c9821c]">Abrir localização →</span>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-[#0d2731] text-white/80">
+    <div class="max-w-[1200px] mx-auto px-8 py-12 grid gap-8" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+      <div>
+        <p class="text-xl font-bold text-white" style="font-family:'Sora',sans-serif">Aurora Solar</p>
+        <p class="text-sm mt-3">Engenharia fotovoltaica desde 2014. CNPJ 18.442.309/0001-73 · CREA-SP 5069842114.</p>
+        <div class="flex gap-3 mt-5">
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="w-9 h-9 rounded-lg bg-white/10 hover:bg-[#f2a63b] hover:text-[#12313f] grid place-items-center">📷</a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener" class="w-9 h-9 rounded-lg bg-white/10 hover:bg-[#f2a63b] hover:text-[#12313f] grid place-items-center">f</a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="w-9 h-9 rounded-lg bg-white/10 hover:bg-[#f2a63b] hover:text-[#12313f] grid place-items-center">in</a>
+          <a href="https://www.youtube.com/" target="_blank" rel="noopener" class="w-9 h-9 rounded-lg bg-white/10 hover:bg-[#f2a63b] hover:text-[#12313f] grid place-items-center">▶</a>
+        </div>
+      </div>
+      <div>
+        <p class="text-white font-semibold text-sm uppercase tracking-wide">Navegue</p>
+        <div class="mt-4 space-y-2 text-sm flex flex-col items-start">
+          <button onclick="mostrarTela('catalogo-de-servicos')" class="hover:text-[#f2a63b]">Catálogo de serviços</button>
+          <button onclick="mostrarTela('detalhe-do-servico')" class="hover:text-[#f2a63b]">Solar residencial</button>
+          <button onclick="mostrarTela('cadastro-de-cliente')" class="hover:text-[#f2a63b]">Cadastro de cliente</button>
+          <button onclick="mostrarTela('contato-e-localizacao')" class="hover:text-[#f2a63b]">Contato e localização</button>
+        </div>
+      </div>
+      <div>
+        <p class="text-white font-semibold text-sm uppercase tracking-wide">Atendimento</p>
+        <div class="mt-4 space-y-2 text-sm flex flex-col items-start">
+          <a href="https://wa.me/551633254180" target="_blank" rel="noopener" class="hover:text-[#f2a63b]">WhatsApp (16) 3325-4180</a>
+          <a href="tel:+551633254180" class="hover:text-[#f2a63b]">Ligar para a central</a>
+          <a href="mailto:contato@aurorasolar.com.br" class="hover:text-[#f2a63b]">contato@aurorasolar.com.br</a>
+          <button onclick="home_institucional_abrirChat()" class="hover:text-[#f2a63b]">Chat com consultor</button>
+        </div>
+      </div>
+      <div>
+        <p class="text-white font-semibold text-sm uppercase tracking-wide">Receba dicas de economia</p>
+        <div class="mt-4">
+          <input id="hi-news" type="email" placeholder="seu@email.com.br" class="w-full rounded-xl bg-white/10 border border-white/15 px-3 py-2.5 text-sm text-white placeholder:text-white/40">
+          <button onclick="home_institucional_news()" class="hi-btn w-full py-2.5 mt-2 text-sm">Assinar newsletter</button>
+          <p id="hi-news-ok" class="hidden text-xs text-[#8fe0bd] mt-2"></p>
+        </div>
+        <button onclick="mostrarTela('painel-administrativo')" class="text-xs text-white/40 hover:text-[#f2a63b] mt-6">Área do administrador</button>
+      </div>
+    </div>
+    <div class="border-t border-white/10 py-5 text-center text-xs text-white/40">© 2025 Aurora Solar Engenharia · Ribeirão Preto/SP</div>
+  </footer>
+
+  <div class="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3">
+    <div id="hi-chat" class="hidden w-[330px] hi-card overflow-hidden shadow-2xl">
+      <div class="bg-[#12313f] text-white px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#5fd39a]"></span>
+          <div><p class="text-sm font-semibold">Bianca · Consultora</p><p class="text-[11px] text-white/60">responde em ~2 min</p></div>
+        </div>
+        <button onclick="home_institucional_abrirChat()" class="text-white/70 hover:text-white text-lg leading-none">×</button>
+      </div>
+      <div id="hi-msgs" class="p-4 space-y-3 h-64 overflow-y-auto bg-[#fdfbf7] text-sm">
+        <div class="bg-white border border-[#e6ded1] rounded-xl rounded-tl-sm p-3 max-w-[85%]">Olá! Sou a Bianca, da Aurora Solar. Como posso te ajudar hoje?</div>
+      </div>
+      <div class="px-3 pb-2 flex flex-wrap gap-2 bg-[#fdfbf7]">
+        <button onclick="home_institucional_rapida('Quanto custa para minha casa?')" class="text-xs border border-[#dcd2c2] rounded-full px-3 py-1.5 hover:bg-[#f2a63b]/20">Quanto custa?</button>
+        <button onclick="home_institucional_rapida('Vocês fazem financiamento?')" class="text-xs border border-[#dcd2c2] rounded-full px-3 py-1.5 hover:bg-[#f2a63b]/20">Financiamento</button>
+        <button onclick="home_institucional_rapida('Atendem em Franca?')" class="text-xs border border-[#dcd2c2] rounded-full px-3 py-1.5 hover:bg-[#f2a63b]/20">Cobertura</button>
+      </div>
+      <div class="flex border-t border-[#e6ded1] bg-white">
+        <input id="hi-chat-in" onkeydown="if(event.key==='Enter')home_institucional_enviar()" placeholder="Escreva sua mensagem..." class="flex-1 px-4 py-3 text-sm outline-none">
+        <button onclick="home_institucional_enviar()" class="px-4 text-[#c9821c] font-semibold">Enviar</button>
+      </div>
+    </div>
+    <div class="flex gap-3">
+      <a href="https://wa.me/551633254180" target="_blank" rel="noopener" class="w-14 h-14 rounded-full bg-[#25d366] text-white grid place-items-center text-2xl shadow-lg" title="WhatsApp">✆</a>
+      <button onclick="home_institucional_abrirChat()" class="h-14 px-5 rounded-full bg-[#12313f] text-white font-semibold shadow-lg hover:bg-[#1b4557]">💬 Fale conosco</button>
+    </div>
+  </div>
+
+  <script>
+    var home_institucional_tipoSel = 'Residência';
+    function home_institucional_tipo(btn, nome){
+      home_institucional_tipoSel = nome;
+      document.querySelectorAll('#hi-tipos button').forEach(function(b){
+        b.classList.remove('bg-[#12313f]','text-white','border-transparent');
+      });
+      btn.classList.add('bg-[#12313f]','text-white','border-transparent');
+    }
+    function home_institucional_simular(){
+      var conta = parseFloat(document.getElementById('hi-conta').value);
+      var eco = conta * 0.88;
+      var kwp = Math.max(2.6, (conta/0.98/140)).toFixed(1);
+      var invest = kwp * 4200;
+      var payback = (invest / (eco*12)).toFixed(1).replace('.',',');
+      document.getElementById('hi-res-tipo').textContent = home_institucional_tipoSel;
+      document.getElementById('hi-res-cidade').textContent = document.getElementById('hi-cidade').value;
+      document.getElementById('hi-res-eco').textContent = 'R$ ' + eco.toLocaleString('pt-BR',{maximumFractionDigits:0});
+      document.getElementById('hi-res-kwp').textContent = String(kwp).replace('.',',');
+      document.getElementById('hi-res-payback').textContent = payback + ' anos';
+      document.getElementById('hi-resultado').classList.remove('hidden');
+    }
+    function home_institucional_depo(card){
+      var full = card.querySelector('[data-full]');
+      var tog = card.querySelector('[data-tog]');
+      var aberto = !full.classList.contains('hidden');
+      full.classList.toggle('hidden', aberto);
+      tog.textContent = aberto ? 'Ler mais +' : 'Fechar −';
+      card.classList.toggle('border-[#f2a63b]', !aberto);
+    }
+    function home_institucional_news(){
+      var el = document.getElementById('hi-news');
+      var ok = document.getElementById('hi-news-ok');
+      if(!el.value.trim()){ ok.textContent = 'Digite um e-mail para assinar.'; ok.classList.remove('hidden'); return; }
+      ok.textContent = 'Pronto! ' + el.value + ' cadastrado na lista.';
+      ok.classList.remove('hidden');
+      el.value = '';
+    }
+    function home_institucional_abrirChat(){
+      var c = document.getElementById('hi-chat');
+      c.classList.toggle('hidden');
+      if(!c.classList.contains('hidden')) document.getElementById('hi-chat-in').focus();
+    }
+    function home_institucional_bolha(texto, meu){
+      var box = document.getElementById('hi-msgs');
+      var d = document.createElement('div');
+      d.className = meu
+        ? 'bg-[#12313f] text-white rounded-xl rounded-br-sm p-3 max-w-[85%] ml-auto'
+        : 'bg-white border border-[#e6ded1] rounded-xl rounded-tl-sm p-3 max-w-[85%]';
+      d.textContent = texto;
+      box.appendChild(d);
+      box.scrollTop = box.scrollHeight;
+    }
+    function home_institucional_responder(txt){
+      var t = txt.toLowerCase(), r;
+      if(t.indexOf('custa') >= 0 || t.indexOf('preço') >= 0 || t.indexOf('valor') >= 0)
+        r = 'Residências começam em R$ 14.900 (3,2 kWp). Posso montar uma proposta com base na sua conta de luz — quer preencher o cadastro?';
+      else if(t.indexOf('financ') >= 0 || t.indexOf('parcel') >= 0)
+        r = 'Sim! Trabalhamos com Santander, BV e Sol Fácil, em até 84x com carência de 90 dias.';
+      else if(t.indexOf('franca') >= 0 || t.indexOf('atend') >= 0 || t.indexOf('cidade') >= 0)
+        r = 'Atendemos 42 cidades num raio de 180 km de Ribeirão Preto, inclusive Franca, Barretos e Sertãozinho.';
+      else if(t.indexOf('prazo') >= 0 || t.indexOf('tempo') >= 0)
+        r = 'Da assinatura à usina ligada, a média é de 28 dias, incluindo a homologação na CPFL.';
+      else
+        r = 'Anotei aqui. Para eu te enviar um estudo completo, cadastre seus dados que um consultor liga em até 1 hora útil.';
+      setTimeout(function(){ home_institucional_bolha(r, false); }, 550);
+    }
+    function home_institucional_rapida(txt){
+      home_institucional_bolha(txt, true);
+      home_institucional_responder(txt);
+    }
+    function home_institucional_enviar(){
+      var i = document.getElementById('hi-chat-in');
+      if(!i.value.trim()) return;
+      home_institucional_bolha(i.value, true);
+      home_institucional_responder(i.value);
+      i.value = '';
+    }
+  </script>
+</section>
+
     <!-- TELAS -->
 </main>
 
